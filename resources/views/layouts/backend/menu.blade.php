@@ -90,10 +90,8 @@
 <div class="left-side-bar">
     <div class="brand-logo">
         <a href="{{ route('home') }}">
-            <img src="{{ asset('backend_theme') }}/vendors/images/deskapp-logo.svg" alt=""
-                class="dark-logo" />
-            <img src="{{ asset('backend_theme') }}/vendors/images/deskapp-logo-white.svg" alt=""
-                class="light-logo" />
+            <img src="{{ asset('frontend_theme') }}/assets/img/logo.png" alt="" class="dark-logo" />
+            <img src="{{ asset('frontend_theme') }}/assets/img/logo.png" alt="" class="light-logo" />
         </a>
         <div class="close-sidebar" data-toggle="left-sidebar-close">
             <i class="ion-close-round"></i>
@@ -109,10 +107,51 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('customers') }}"
-                        class="dropdown-toggle no-arrow {{ request()->is('customers*') ? 'active' : '' }}">
-                        <span class="micon bi bi-person"></span><span class="mtext">Customers</span>
+                    <a href="{{ route('data-bidang') }}"
+                        class="dropdown-toggle no-arrow {{ request()->is('data-bidang*') ? 'active' : '' }}">
+                        <span class="micon bi bi-archive"></span><span class="mtext">Bidang</span>
                     </a>
+                </li>
+                <li>
+                    <a href="{{ route('klien') }}"
+                        class="dropdown-toggle no-arrow {{ request()->is('klien*') ? 'active' : '' }}">
+                        <span class="micon bi bi-file-image"></span><span class="mtext">Klien</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('data-galeri') }}"
+                        class="dropdown-toggle no-arrow {{ request()->is('data-galeri*') ? 'active' : '' }}">
+                        <span class="micon bi bi-image"></span><span class="mtext">Galeri</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('ump') }}"
+                        class="dropdown-toggle no-arrow {{ request()->is('ump*') ? 'active' : '' }}">
+                        <span class="micon bi bi-cash"></span><span class="mtext">Upah Minimum Provinsi</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('saran') }}"
+                        class="dropdown-toggle no-arrow {{ request()->is('saran*') ? 'active' : '' }}">
+                        <span class="micon bi bi-chat-dots"></span><span class="mtext">Kotak Saran</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('renstra') }}"
+                        class="dropdown-toggle no-arrow {{ request()->is('renstra*') ? 'active' : '' }}">
+                        <span class="micon bi bi-archive"></span><span class="mtext">File Renstra</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon bi bi-newspaper"></span><span class="mtext">Berita</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ route('kategori-berita') }}"
+                                class="{{ request()->is('kategori-berita') ? 'active' : '' }}">Kategori</a></li>
+                        <li><a href="{{ route('berita') }}"
+                                class="{{ request()->is('berita*') ? 'active' : '' }}">Berita</a></li>
+                    </ul>
                 </li>
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
@@ -120,11 +159,23 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ route('users') }}"
-                                class="{{ request()->is('users') ? 'active' : '' }}">Pengguna</a></li>
+                                class="{{ request()->is('users') ? 'active' : '' }}">Pengguna</a>
+                        </li>
 
                     </ul>
                 </li>
-
+                <li>
+                    <a href="{{ route('pengunjung') }}"
+                        class="dropdown-toggle no-arrow {{ request()->is('pengunjung*') ? 'active' : '' }}">
+                        <span class="micon bi bi-files"></span><span class="mtext">Pengunjung</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('setting') }}"
+                        class="dropdown-toggle no-arrow {{ request()->is('setting*') ? 'active' : '' }}">
+                        <span class="micon bi bi-gear"></span><span class="mtext">Setting</span>
+                    </a>
+                </li>
                 <li>
                     <a href="{{ url('/profile') }}"
                         class="dropdown-toggle no-arrow {{ request()->is('profile*') ? 'active' : '' }}">

@@ -8,11 +8,9 @@
     <title>{{ $title ?? 'Home' }} - {{ env('APP_NAME') ?? 'Laravel' }}</title>
     @stack('css')
     <!-- Site favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('backend_theme') }}/vendors/images/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32"
-        href="{{ asset('backend_theme') }}/vendors/images/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="{{ asset('backend_theme') }}/vendors/images/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('frontend_theme') }}/assets/img/logo.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('frontend_theme') }}/assets/img/logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('frontend_theme') }}/assets/img/logo.png" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Mobile Specific Metas -->
@@ -24,6 +22,7 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('backend_theme') }}/vendors/styles/core.css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('backend_theme') }}/vendors/styles/icon-font.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('backend_theme') }}/src/plugins/datatables/css/dataTables.bootstrap4.min.css" />
     <link rel="stylesheet" type="text/css"
@@ -41,22 +40,44 @@
 
         gtag("config", "G-GBZ3SGGX85");
     </script>
+    <style>
+        body {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('{{ asset('auth') }}/assets/img/login-bg.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.07;
+            z-index: -1;
+        }
+    </style>
 
 </head>
 
-<body>
-    {{-- <div class="pre-loader">
+<body style="background-color: rgba(255, 255, 255, 0.491);">
+    <div class="pre-loader">
         <div class="pre-loader-box">
-            <div class="loader-logo">
-                <img src="{{ asset('backend_theme') }}/vendors/images/deskapp-logo.svg" alt="" />
+            <div class="loader-logo text-center mb-4">
+                <img src="{{ asset('frontend_theme') }}/assets/img/logo.png" alt="" style="width: 30%;" />
             </div>
             <div class="loader-progress" id="progress_div">
                 <div class="bar" id="bar1"></div>
             </div>
             <div class="percent" id="percent1">0%</div>
-            <div class="loading-text">Loading...</div>
+            <div class="loading-text">Memuat Halaman...</div>
         </div>
-    </div> --}}
+    </div>
     @include('layouts.backend.navbar')
     @include('layouts.backend.menu')
     <div class="mobile-menu-overlay"></div>

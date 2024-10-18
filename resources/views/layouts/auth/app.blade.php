@@ -1,87 +1,56 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-    <!-- Basic Page Info -->
-    <meta charset="utf-8" />
-    <title>Authentication - {{ env('APP_NAME') ?? 'Laravel' }} </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Site favicon -->
-    <link rel="apple-touch-icon" sizes="180x180"
-        href="{{ asset('backend_theme/') }}/vendors/images/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32"
-        href="{{ asset('backend_theme/') }}/vendors/images/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="{{ asset('backend_theme/') }}/vendors/images/favicon-16x16.png" />
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
-    <!-- Mobile Specific Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet" />
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend_theme/') }}/vendors/styles/core.css" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend_theme/') }}/vendors/styles/icon-font.min.css" />
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('backend_theme/') }}/src/plugins/jquery-steps/jquery.steps.css" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend_theme/') }}/vendors/styles/style.css" />
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag("js", new Date());
-
-        gtag("config", "G-GBZ3SGGX85");
-    </script>
-
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="{{ asset('auth') }}/assets/css/styles.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Login - {{ env('APP_NAME') }}</title>
 </head>
 
-<body class="login-page">
-    <!-- Content -->
-    <div class="login-header box-shadow">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-            <div class="brand-logo">
-                <a href="{{ url('/') }}">
-                    <img src="{{ asset('backend_theme/') }}/vendors/images/deskapp-logo.svg" alt="" />
-                </a>
-            </div>
-            <div class="login-menu">
-                <ul>
-                    @if ($title == 'login')
-                        <li><a href="{{ route('register') }}">Register</a></li>
-                    @elseif($title == 'register')
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                    @endif
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
-        <div class="container">
-            @yield('content')
-        </div>
-    </div>
+<body>
+    @yield('content')
 
+    <script src="{{ asset('auth') }}/assets/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Get CSRF token for AJAX request
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-    <!-- / Content -->
+            // Prepare visitor data
+            var visitorData = {
+                data: {
+                    page_visited: window.location.href,
+                    visit_time: new Date().toLocaleString(),
+                    additional_info: ''
+                }
+            };
 
-
-    <!-- js -->
-    <script src="{{ asset('backend_theme/') }}/vendors/scripts/core.js"></script>
-    <script src="{{ asset('backend_theme/') }}/vendors/scripts/script.min.js"></script>
-    <script src="{{ asset('backend_theme/') }}/vendors/scripts/process.js"></script>
-    <script src="{{ asset('backend_theme/') }}/vendors/scripts/layout-settings.js"></script>
-    <script src="{{ asset('backend_theme/') }}/src/plugins/jquery-steps/jquery.steps.js"></script>
-    {{-- <script src="{{ asset('backend_theme/') }}/vendors/scripts/steps-setting.js"></script> --}}
-
-
+            // Send AJAX request to store visitor data
+            $.ajax({
+                url: "{{ route('pengunjung.store') }}", // URL to store data
+                type: "POST", // HTTP method
+                contentType: 'application/json', // Set content type to JSON
+                data: JSON.stringify(visitorData), // Convert the object to a JSON string
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // Add CSRF token to request header
+                },
+                success: function(response) {
+                    // console.log(response.message); // Log success message
+                },
+                error: function(xhr, status, error) {
+                    // console.error('Error storing visitor data:', error); // Log error
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

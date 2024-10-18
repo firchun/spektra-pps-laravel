@@ -19,7 +19,7 @@ class ProfileController extends Controller
         $data = [
             'title' => 'Profile',
         ];
-        return view('admin.akun.profile', $data);
+        return view('akun.profile', $data);
     }
 
     public function update(Request $request)
@@ -32,15 +32,13 @@ class ProfileController extends Controller
                 'new_password' => 'nullable|min:8|max:12|required_with:current_password',
                 'password_confirmation' => 'nullable|min:8|max:12|required_with:new_password|same:new_password'
             ]);
-
-
             $user = User::findOrFail(Auth::user()->id);
             $user->name = $request->input('name');
             $user->email = $request->input('email');
 
             if (!is_null($request->input('current_password'))) {
                 if (Hash::check($request->input('current_password'), $user->password)) {
-                    $user->password = $request->input('new_password');
+                    $user->password = Hash::make($request->input('new_password'));
                 } else {
                     return redirect()->back()->withInput();
                 }
