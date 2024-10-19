@@ -56,7 +56,7 @@
                         <!-- Gradient overlay -->
                         <div class="gradient-overlay"></div>
 
-                        <div class="carousel-caption d-none d-md-block text-center">
+                        <div class="carousel-caption  text-center">
                             <h1 class="text-primary fw-bold">
                                 Selamat Datang
                                 di
@@ -220,8 +220,8 @@
 
             <div class="row  justify-content-center">
                 @foreach ($berita as $item)
-                    <div class=" col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card news-card position-relative border-primary">
+                    <div class="col-lg-3 col-md-6 mb-3" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card  position-relative border-primary">
                             <img src="{{ asset('img') }}/default.webp" class="card-img-top" alt="Judul Berita">
                             <div class="card-body">
                                 <h5 class="card-title text-center fw-bold">

@@ -20,8 +20,8 @@
 
             <div class="row  justify-content-center">
                 @foreach ($berita as $item)
-                    <div class=" col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card news-card position-relative border-primary">
+                    <div class="col-lg-3 col-md-6 mb-3" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card  position-relative border-primary">
                             <img src="{{ asset('img') }}/default.webp" class="card-img-top" alt="Judul Berita">
                             <div class="card-body">
                                 <h5 class="card-title text-center fw-bold">
@@ -31,7 +31,7 @@
                                 </h5>
                                 <small class="text-primary p-2 d-block text-center"
                                     style="width:100%; background-color: color-mix(in srgb, var(--accent-color), transparent 90%); 
-                                border-radius:10px;">
+                        border-radius:10px;">
                                     <i class=" bi bi-calendar-date"></i> {{ $item->created_at->diffForHumans() }}
                                     <i class=" bi bi-archive " style="margin-left: 12px;"></i>
                                     {{ $item->kategori->kategori }}
