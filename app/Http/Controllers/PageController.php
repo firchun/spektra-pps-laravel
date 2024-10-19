@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\Galeri;
 use App\Models\Renstra;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,7 @@ class PageController extends Controller
     {
         $data = [
             'title' => 'Galeri',
+            'galeri' => Galeri::where('tampilkan', 1)->get()
         ];
         return view('pages.galeri', $data);
     }

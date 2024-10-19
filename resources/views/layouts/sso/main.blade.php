@@ -65,7 +65,7 @@
 
 </head>
 
-<body style="background-color: rgba(255, 255, 255, 0.491);">
+<body style="background-color: rgba(255, 255, 255, 0.491);" class="sidebar-shrink">
     <div class="pre-loader">
         <div class="pre-loader-box">
             <div class="loader-logo text-center mb-4">
@@ -78,9 +78,7 @@
             <div class="loading-text">Memuat Halaman...</div>
         </div>
     </div>
-    @include('layouts.backend.navbar')
-    {{-- @stack('menu') --}}
-    @include('layouts.backend.menu')
+    @include('layouts.sso.navbar')
     <div class="mobile-menu-overlay"></div>
 
     <div class="main-container">
@@ -116,77 +114,7 @@
     <!-- Datatable Setting js -->
     <script src="{{ asset('backend_theme') }}/vendors/scripts/datatable-setting.js"></script>
     @stack('js')
-    <script>
-        $(".delete-button").on('click', function(e) {
-            e.preventDefault();
-            let form = $(this).parents('form');
 
-            swal.fire({
-                title: 'Apakah Anda yakin ingin menghapus data ini?',
-                text: 'Data yang dihapus tidak bisa dikembalikan',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Hapus',
-                cancelButtonText: 'Batalkan'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit()
-
-                    swal.fire(
-                        'Dikonfirmasi!',
-                        'Data akan dihapus.',
-                        'success'
-                    )
-                }
-            })
-        })
-        $(document).ready(function() {
-            $('#datatable').DataTable({
-                // responsive: true,
-                "language": {
-                    "lengthMenu": "Tampilkan _MENU_ ",
-                    "zeroRecords": "Maaf belum ada data",
-                    "info": "Tampilkan data _PAGE_ dari _PAGES_",
-                    "infoEmpty": "belum ada data",
-                    "infoFiltered": "(saring from _MAX_ total data)",
-                    "search": "Cari : ",
-                    "paginate": {
-                        "previous": "Sebelumnya ",
-                        "next": "Selanjutnya"
-                    }
-                }
-
-            });
-        });
-        $(document).ready(function() {
-            $('#datatable2').DataTable({
-                // responsive: true,
-                "language": {
-                    "lengthMenu": "Tampilkan _MENU_ ",
-                    "zeroRecords": "Maaf belum ada data",
-                    "info": "Tampilkan data _PAGE_ dari _PAGES_",
-                    "infoEmpty": "belum ada data",
-                    "infoFiltered": "(saring from _MAX_ total data)",
-                    "search": "Cari : ",
-                    "paginate": {
-                        "previous": "Sebelumnya ",
-                        "next": "Selanjutnya"
-                    }
-                }
-            });
-        });
-        $(document).ready(function() {
-            $('#datatable-export').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf'
-                ]
-            });
-        });
-    </script>
-    <script>
-        flatpickr("input[type=date]");
-    </script>
     @if (Session::has('danger'))
         <script>
             Swal.fire({

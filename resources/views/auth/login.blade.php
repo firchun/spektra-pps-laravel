@@ -7,7 +7,9 @@
         <form class="login__form" method="POST" action="{{ route('login') }}">
             @csrf
             <center style="margin-bottom: 20px;">
-                <a href="{{ url('/') }}" class="login__title" style="color:white;">Login</a>
+                <a href="{{ url('/') }}" class="login__title"
+                    style="color:white;font-weight:bolder; font-size:50px;">LOGIN</a><br>
+                <span><small><mark style="border-radius: 5px; padding:5px;">Single Authentication</mark></small></span>
             </center>
             <h4 style="margin-bottom:50px; text-align:center;">{{ env('APP_NAME') }}</h4>
             @if ($errors->any())

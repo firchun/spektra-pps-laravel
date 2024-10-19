@@ -1,8 +1,11 @@
 <div class="header">
     <div class="header-left">
-        <div class="menu-icon bi bi-list"></div>
-
-        {{-- <div class="search-toggle-icon bi bi-search" data-toggle="header_search"></div> --}}
+        <div class="mx-3">
+            <a href="{{ route('home') }}">
+                <img src="{{ asset('frontend_theme') }}/assets/img/logo.png" alt="" class="dark-logo"
+                    style="height: 5vh;" />
+            </a>
+        </div>
         {{-- <div class="header-search">
             <form>
                 <div class="form-group mb-0">

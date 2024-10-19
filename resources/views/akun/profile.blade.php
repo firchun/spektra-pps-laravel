@@ -24,7 +24,8 @@
                                         <i class="bx bx-pen"></i>{{ Auth::user()->role ?? 'None' }}
                                     </li>
                                     <li class="list-inline-item fw-medium">
-                                        <i class="bx bx-calendar-alt"></i> {{ Auth::user()->created_at->format('d F Y') }}
+                                        <i class="bx bx-calendar-alt"></i>
+                                        {{ Auth::user()->created_at ? Auth::user()->created_at->format('d F Y') : '' }}
                                     </li>
                                 </ul>
                             </div>

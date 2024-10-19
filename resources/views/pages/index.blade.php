@@ -1,29 +1,111 @@
 @extends('layouts.frontend.app')
+@push('css')
+    <style>
+        /* Position the gradient overlay over the image */
+        .carousel-item .gradient-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50vh;
+            /* Adjust to how tall you want the gradient */
+            background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+            /* Bottom solid white, top transparent white */
+            pointer-events: none;
+            /* Ensures it doesn't block interaction with content */
+        }
+
+        /* Ensure the caption stays on top */
+        .carousel-caption {
+            /* Keeps caption above the gradient */
+            z-index: 2;
+        }
+    </style>
+@endpush
 @section('content')
     @php
         $setting = App\Models\Setting::latest()->first();
     @endphp
     <!-- Hero Section -->
-    <section id="hero" class="hero section light-background">
+    <section id="hero" class=" " style="padding-top: 0 !important;">
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+            @php
+                $items = App\Models\Galeri::where('tampilkan', 1)
+                    ->where('untuk', 'Slider')
+                    ->where('jenis', 'Foto')
+                    ->limit(3)
+                    ->get();
+            @endphp
 
-        <div class="container">
-            <div class="row gy-4">
-                <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="zoom-out">
-                    <h1>Selamat Datang di
-                    </h1>
-                    <p class="text-primary">Dinas Tenaga Kerja, Transmigrasi, Energi dan Sumber Daya Mineral Papua
-                        Selatan</p>
-                    <div class="d-flex">
-                        <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
-                            class="glightbox btn btn-outline-primary btn-lg"><i class="bi bi-play-circle"></i><span
-                                class="mx-2"> Watch
-                                Video</span></a>
-                    </div>
-                </div>
+            <!-- Carousel Indicators -->
+            <div class="carousel-indicators">
+                @foreach ($items as $key => $item)
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ $key }}"
+                        class="{{ $key == 0 ? 'active' : '' }}" aria-current="{{ $key == 0 ? 'true' : 'false' }}"
+                        aria-label="Slide {{ $key + 1 }}"></button>
+                @endforeach
             </div>
-        </div>
 
-    </section><!-- /Hero Section -->
+            <!-- Carousel Items -->
+            <div class="carousel-inner">
+                @foreach ($items as $key => $item)
+                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}" style="position: relative;">
+                        <img src="{{ Storage::url($item->file) }}" style="width: 100%; height:80vh; object-fit:cover;"
+                            alt="Image for Slide {{ $key + 1 }}">
+
+                        <!-- Gradient overlay -->
+                        <div class="gradient-overlay"></div>
+
+                        <div class="carousel-caption d-none d-md-block text-center">
+                            <h1 class="text-primary fw-bold">
+                                Selamat Datang
+                                di
+                            </h1>
+                            <p class="text-black">Dinas Tenaga Kerja, Transmigrasi, Energi dan Sumber Daya
+                                Mineral Papua Selatan
+                            </p>
+                            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+                                class="glightbox btn btn-outline-primary btn-lg">
+                                <i class="bi bi-play-circle"></i><span class="mx-2">Tonton Video</span>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+                @if (!$items)
+                    <div class="carousel-item active" style="position: relative;">
+                        <img src="{{ asset('auth') }}/assets/img/login-bg.png"
+                            style="width: 100%; height:80vh; object-fit:cover;">
+                        <div class="gradient-overlay">
+                        </div>
+
+                        <div class="carousel-caption d-none d-md-block text-center">
+                            <h1 class="text-primary fw-bold">
+                                Selamat Datang
+                                di
+                            </h1>
+                            <p class="text-black">Dinas Tenaga Kerja, Transmigrasi, Energi dan Sumber Daya
+                                Mineral Papua Selatan
+                            </p>
+                            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+                                class="glightbox btn btn-outline-primary btn-lg">
+                                <i class="bi bi-play-circle"></i><span class="mx-2">Tonton Video</span>
+                            </a>
+                        </div>
+                    </div>
+                @endif
+            </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
 
     <!-- Featured Services Section -->
     <section id="featured-services" class="featured-services section">

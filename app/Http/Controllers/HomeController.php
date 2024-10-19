@@ -26,6 +26,31 @@ class HomeController extends Controller
     public function index()
     {
         $data = [
+            'title' => 'Main Menu',
+        ];
+        return view('admin.dashboard', $data);
+    }
+    public function dashboardAdmin()
+    {
+        $data = [
+            'title' => 'Dashboard',
+            'users' => User::count(),
+            'customers' => Customer::count()
+        ];
+        return view('admin.dashboard', $data);
+    }
+    public function dashboardSuperAdmin()
+    {
+        $data = [
+            'title' => 'Dashboard',
+            'users' => User::count(),
+            'customers' => Customer::count()
+        ];
+        return view('admin.dashboard', $data);
+    }
+    public function dashboardSpektra()
+    {
+        $data = [
             'title' => 'Dashboard',
             'users' => User::count(),
             'customers' => Customer::count()

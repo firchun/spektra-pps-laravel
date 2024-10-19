@@ -21,8 +21,8 @@ class GaleriController extends Controller
         $data = Galeri::orderByDesc('id');
 
         return DataTables::of($data)
-            ->addColumn('action', function ($customer) {
-                return view('admin.galeri.components.actions', compact('customer'));
+            ->addColumn('action', function ($galeri) {
+                return view('admin.galeri.components.actions', compact('galeri'));
             })
             ->addColumn('file', function ($customer) {
                 return  '<img src="' . Storage::url($customer->file) . '" alt="' . $customer->nama . '" style="width:100px;">';

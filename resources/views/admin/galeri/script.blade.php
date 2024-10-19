@@ -48,6 +48,10 @@
                     success: function(response) {
                         $('#formCustomerId').val(response.id);
                         $('#judul').val(response.judul);
+                        $('#untuk').val(response.untuk);
+                        $('#jenis').val(response.jenis);
+                        $('#keterangan').val(response.keterangan);
+                        $('#tampilkan').val(response.tampilkan);
                         $('#customersModal').modal('show');
                     },
                     error: function(xhr) {
@@ -114,6 +118,10 @@
                         alert(response.message);
                         $('#createJudul').val('');
                         $('#createFile').val('');
+                        $('#createJenis').val('');
+                        $('#createUntuk').val('');
+                        $('#createKeterangan').val('');
+                        $('#createTampilkan').val('');
                         $('#datatable-customers').DataTable().ajax.reload();
                         $('#create').modal('hide');
                     },
