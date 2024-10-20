@@ -119,4 +119,23 @@ class PageController extends Controller
         ];
         return view('pages.bidang', $data);
     }
+    public function dashboard()
+    {
+        $totalKabupaten = 4;
+        $totalSdm = 200;
+
+        // Dummy company data for the chart
+        $companyData = [
+            'labels' => ['Company A', 'Company B', 'Company C', 'Company D', 'Company E'],
+            'data' => [150, 200, 120, 180, 90] // Example numbers for each company
+        ];
+        $data = [
+            'title' => 'Dashboard Sepktra',
+            'totalKabupaten' => $totalKabupaten,
+            'totalSdm' => $totalSdm,
+            'companyData' => $companyData
+
+        ];
+        return view('pages.dashboard', $data);
+    }
 }

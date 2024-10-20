@@ -42,6 +42,7 @@ Route::get('/sambutan', [App\Http\Controllers\PageController::class, 'sambutan']
 Route::get('/struktur', [App\Http\Controllers\PageController::class, 'struktur']);
 Route::get('/bidang', [App\Http\Controllers\PageController::class, 'bidang']);
 Route::get('/visi-misi', [App\Http\Controllers\PageController::class, 'visi_misi']);
+Route::get('/dashboard-spektra', [App\Http\Controllers\PageController::class, 'dashboard']);
 //simpan saran
 Route::post('/saran/store',  [SaranController::class, 'store'])->name('saran.store');
 

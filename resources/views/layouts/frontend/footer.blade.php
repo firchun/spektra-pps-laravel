@@ -1,7 +1,7 @@
 <footer id="footer" class="footer">
     <div class="container footer-top">
-        <div class="row gy-4">
-            <div class="col-lg-4 col-md-4 footer-about">
+        <div class="row gy-4 justify-content-center mx-4">
+            <div class="col-lg-4 col-md-12 footer-about mb-3">
                 <img alt="logo" src="{{ asset('frontend_theme') }}/assets/img/logo.png" style="height: 50px;">
                 @php
                     $setting = App\Models\Setting::latest()->first();

@@ -96,7 +96,9 @@
                     <li><a href="{{ url('/kotak-saran') }}"
                             class="{{ Request::is('kotak-saran') ? 'active' : '' }}">Kotak Saran</a></li>
                     <li><a href="{{ url('/galeri') }}" class="{{ Request::is('galeri') ? 'active' : '' }}">Galeri</a>
-                    </li>
+                    <li><a href="{{ url('/dashboard-spektra') }}"
+                            class="{{ Request::is('dashboard-spektra') ? 'active' : '' }}">SPEKTRA</a>
+
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
