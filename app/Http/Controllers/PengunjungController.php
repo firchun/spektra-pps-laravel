@@ -16,8 +16,13 @@ class PengunjungController extends Controller
         ];
         return view('admin.pengunjung.index', $data);
     }
-    public function getPengunjungDataTable()
+    public function getPengunjungDataTable(Request $request)
     {
+        if ($request->has('export') && $request->export === 'all') {
+
+            $data = Pengunjung::all();
+            return response()->json(['data' => $data]);
+        }
         $data = Pengunjung::orderByDesc('id');
 
         return DataTables::of($data)

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['Super Admin', 'Admin Kabupaten', 'Operator', 'Admin Provinsi', 'Kadis Provinsi', 'Kadis Kabupaten'])->default('User')->after('email');
+            $table->foreignId('id_kabupaten')->nullable()->after('id')->constrained('kabupaten')->onDelete('cascade');
         });
     }
 

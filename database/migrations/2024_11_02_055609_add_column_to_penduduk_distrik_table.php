@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['Super Admin', 'Admin Kabupaten', 'Operator', 'Admin Provinsi', 'Kadis Provinsi', 'Kadis Kabupaten'])->default('User')->after('email');
+        Schema::table('penduduk_distrik', function (Blueprint $table) {
+            $table->integer('jumlah_produktif')->after('jumlah')->default(0);
+            $table->integer('jumlah_pengangguran')->after('jumlah_produktif')->default(0);
         });
     }
 
@@ -25,7 +26,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('penduduk_distrik', function (Blueprint $table) {
             //
         });
     }

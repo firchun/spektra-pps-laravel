@@ -1,10 +1,10 @@
-@extends('layouts.frontend.app')
+@extends('layouts.frontend.spektra')
 
 @section('content')
     <section id="dashboard" class="dashboard section">
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
-            <h2>Dashboard</h2>
+            <img src="{{ asset('/') }}img/logo_spektra.png" alt="" style="height: 200px;">
             <p>
                 <span>Spektra </span> <span class="description-title">Dashboard</span>
             </p>
@@ -25,7 +25,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Card for SDM -->
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card text-center shadow-sm border-primary">

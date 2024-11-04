@@ -1,27 +1,32 @@
 @push('js')
     <script>
         $(function() {
-            $('#datatable-users').DataTable({
+            $('#datatable-customers').DataTable({
                 processing: true,
                 serverSide: true,
-                responsive: true,
-                ajax: '{{ url('users-datatable', $role) }}',
+                responsive: false,
+                ajax: '{{ url('bidang-datatable') }}',
                 columns: [{
                         data: 'id',
                         name: 'id'
                     },
+
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'logo',
+                        name: 'logo'
                     },
                     {
-                        data: 'email',
-                        name: 'email'
+                        data: 'nama_bidang',
+                        name: 'nama_bidang'
                     },
 
                     {
-                        data: 'role',
-                        name: 'role'
+                        data: 'nama_kepala_bidang',
+                        name: 'nama_kepala_bidang'
+                    },
+                    {
+                        data: 'jmlh_pegawai',
+                        name: 'jmlh_pegawai'
                     },
                     {
                         data: 'action',
@@ -29,35 +34,36 @@
                     }
                 ]
             });
-            $('.refresh').click(function() {
-                $('#datatable-users').DataTable().ajax.reload();
-            });
             $('.create-new').click(function() {
                 $('#create').modal('show');
             });
-            window.editUser = function(id) {
+            $('.refresh').click(function() {
+                $('#datatable-customers').DataTable().ajax.reload();
+            });
+            window.editCustomer = function(id) {
                 $.ajax({
                     type: 'GET',
-                    url: '/users/edit/' + id,
+                    url: '/bidang/edit/' + id,
                     success: function(response) {
-                        $('#formUserId').val(response.id);
-                        $('#formUserName').val(response.name);
-                        $('#formUserEmail').val(response.email);
-                        $('#formIdKabupaten').val(response.id_kabupaten);
-                        $('#UsersModal').modal('show');
-                        $('#datatable-users').DataTable().ajax.reload();
+                        $('#customersModalLabel').text('Edit Customer');
+                        $('#formCustomerId').val(response.id);
+                        $('#nama_bidang').val(response.nama_bidang);
+                        $('#nama_kepala_bidang').val(response.nama_kepala_bidang);
+                        $('#jmlh_pegawai').val(response.jmlh_pegawai);
+                        $('#keterangan_bidang').val(response.keterangan_bidang);
+                        $('#customersModal').modal('show');
                     },
                     error: function(xhr) {
                         alert('Terjadi kesalahan: ' + xhr.responseText);
                     }
                 });
             };
-            $('#saveUserBtn').click(function() {
+            $('#saveCustomerBtn').click(function() {
                 var formData = $('#userForm').serialize();
 
                 $.ajax({
                     type: 'POST',
-                    url: '/users/store',
+                    url: '/bidang/store',
                     data: formData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -65,30 +71,29 @@
                     success: function(response) {
                         alert(response.message);
                         // Refresh DataTable setelah menyimpan perubahan
-                        $('#datatable-users').DataTable().ajax.reload();
-                        $('#UsersModal').modal('hide');
+                        $('#datatable-customers').DataTable().ajax.reload();
+                        $('#customersModal').modal('hide');
                     },
                     error: function(xhr) {
                         alert('Terjadi kesalahan: ' + xhr.responseText);
                     }
                 });
             });
-            $('#createUserBtn').click(function() {
+            $('#createCustomerBtn').click(function() {
                 var formData = $('#createUserForm').serialize();
 
                 $.ajax({
                     type: 'POST',
-                    url: '/users/store',
+                    url: '/bidang/store',
                     data: formData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
                         alert(response.message);
-                        $('#formCreateUserName').val('');
-                        $('#formCreateUserEmail').val('');
-                        $('#formCreateIdKabupaten').val('');
-                        $('#datatable-users').DataTable().ajax.reload();
+                        $('#customersModalLabel').text('Edit Customer');
+                        $('#formCustomerName').val('');
+                        $('#datatable-customers').DataTable().ajax.reload();
                         $('#create').modal('hide');
                     },
                     error: function(xhr) {
@@ -96,19 +101,17 @@
                     }
                 });
             });
-
-            window.deleteUser = function(id) {
-                if (confirm('Apakah Anda yakin ingin menghapus pengguna ini?')) {
+            window.deleteCustomers = function(id) {
+                if (confirm('Apakah Anda yakin ingin menghapus pelanggan ini?')) {
                     $.ajax({
                         type: 'DELETE',
-                        url: '/users/delete/' + id,
+                        url: '/bidang/delete/' + id,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(response) {
-                            alert(response.message);
-                            // Refresh DataTable setelah menghapus pengguna
-                            $('#datatable-users').DataTable().ajax.reload();
+                            // alert(response.message);
+                            $('#datatable-customers').DataTable().ajax.reload();
                         },
                         error: function(xhr) {
                             alert('Terjadi kesalahan: ' + xhr.responseText);

@@ -103,79 +103,172 @@
                 <li>
                     <a href="{{ route('home') }}"
                         class="dropdown-toggle no-arrow {{ request()->is('home') ? 'active' : '' }}">
-                        <span class="micon bi bi-house"></span><span class="mtext">Dashboard</span>
+                        <span class="micon bi bi-house"></span><span class="mtext">Dashboard
+                            {{ Auth::user()->role }}</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('data-bidang') }}"
-                        class="dropdown-toggle no-arrow {{ request()->is('data-bidang*') ? 'active' : '' }}">
-                        <span class="micon bi bi-archive"></span><span class="mtext">Bidang</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('klien') }}"
-                        class="dropdown-toggle no-arrow {{ request()->is('klien*') ? 'active' : '' }}">
-                        <span class="micon bi bi-file-image"></span><span class="mtext">Klien</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('data-galeri') }}"
-                        class="dropdown-toggle no-arrow {{ request()->is('data-galeri*') ? 'active' : '' }}">
-                        <span class="micon bi bi-image"></span><span class="mtext">Galeri</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('ump') }}"
-                        class="dropdown-toggle no-arrow {{ request()->is('ump*') ? 'active' : '' }}">
-                        <span class="micon bi bi-cash"></span><span class="mtext">Upah Minimum Provinsi</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('saran') }}"
-                        class="dropdown-toggle no-arrow {{ request()->is('saran*') ? 'active' : '' }}">
-                        <span class="micon bi bi-chat-dots"></span><span class="mtext">Kotak Saran</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('renstra') }}"
-                        class="dropdown-toggle no-arrow {{ request()->is('renstra*') ? 'active' : '' }}">
-                        <span class="micon bi bi-archive"></span><span class="mtext">File Renstra</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon bi bi-newspaper"></span><span class="mtext">Berita</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="{{ route('kategori-berita') }}"
-                                class="{{ request()->is('kategori-berita') ? 'active' : '' }}">Kategori</a></li>
-                        <li><a href="{{ route('berita') }}"
-                                class="{{ request()->is('berita*') ? 'active' : '' }}">Berita</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon bi bi-people"></span><span class="mtext">Pengguna</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="{{ route('users') }}"
-                                class="{{ request()->is('users') ? 'active' : '' }}">Pengguna</a>
-                        </li>
+                @if (Auth::user()->role == 'Kadis Provinsi')
+                    <li>
+                        <a href="{{ url('laporan/distrik') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('laporan/distrik') ? 'active' : '' }}">
+                            <span class="micon bi bi-files"></span><span class="mtext">Laporan Distrik</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('laporan/penduduk') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('laporan/penduduk') ? 'active' : '' }}">
+                            <span class="micon bi bi-files"></span><span class="mtext">Laporan Penduduk</span>
+                        </a>
+                    </li>
+                @endif
+                @if (Auth::user()->role == 'Kadis Kabupaten')
+                    <li>
+                        <a href="{{ url('laporan/distrik') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('laporan/distrik') ? 'active' : '' }}">
+                            <span class="micon bi bi-files"></span><span class="mtext">Laporan Distrik</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('laporan/penduduk') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('laporan/penduduk') ? 'active' : '' }}">
+                            <span class="micon bi bi-files"></span><span class="mtext">Laporan Penduduk</span>
+                        </a>
+                    </li>
+                @endif
+                @if (Auth::user()->role == 'Admin Kabupaten')
+                    <li>
+                        <a href="{{ url('/distrik-admin/' . Auth::user()->id_kabupaten) }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('distrik-admin/' . Auth::user()->id_kabupaten) ? 'active' : '' }}">
+                            <span class="micon bi bi-map"></span><span class="mtext">Distrik</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('laporan/distrik') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('laporan/distrik') ? 'active' : '' }}">
+                            <span class="micon bi bi-files"></span><span class="mtext">Laporan Distrik</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('laporan/penduduk') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('laporan/penduduk') ? 'active' : '' }}">
+                            <span class="micon bi bi-files"></span><span class="mtext">Laporan Penduduk</span>
+                        </a>
+                    </li>
+                @endif
+                @if (Auth::user()->role == 'Admin Provinsi')
+                    <li>
+                        <a href="{{ route('kabupaten') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('kabupaten*') ? 'active' : '' }}">
+                            <span class="micon bi bi-map"></span><span class="mtext">Kabupaten</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('laporan/distrik') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('laporan/distrik') ? 'active' : '' }}">
+                            <span class="micon bi bi-files"></span><span class="mtext">Laporan Distrik</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('laporan/penduduk') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('laporan/penduduk') ? 'active' : '' }}">
+                            <span class="micon bi bi-files"></span><span class="mtext">Laporan Penduduk</span>
+                        </a>
+                    </li>
+                @endif
+                @if (Auth::user()->role == 'Operator')
+                    <li>
+                        <a href="{{ route('data-bidang') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('data-bidang*') ? 'active' : '' }}">
+                            <span class="micon bi bi-archive"></span><span class="mtext">Bidang</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('klien') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('klien*') ? 'active' : '' }}">
+                            <span class="micon bi bi-file-image"></span><span class="mtext">Klien</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('data-galeri') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('data-galeri*') ? 'active' : '' }}">
+                            <span class="micon bi bi-image"></span><span class="mtext">Galeri</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('ump') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('ump*') ? 'active' : '' }}">
+                            <span class="micon bi bi-cash"></span><span class="mtext">Upah Minimum Provinsi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('saran') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('saran*') ? 'active' : '' }}">
+                            <span class="micon bi bi-chat-dots"></span><span class="mtext">Kotak Saran</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('renstra') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('renstra*') ? 'active' : '' }}">
+                            <span class="micon bi bi-archive"></span><span class="mtext">File Renstra</span>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon bi bi-newspaper"></span><span class="mtext">Berita</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="{{ route('kategori-berita') }}"
+                                    class="{{ request()->is('kategori-berita') ? 'active' : '' }}">Kategori</a></li>
+                            <li><a href="{{ route('berita') }}"
+                                    class="{{ request()->is('berita*') ? 'active' : '' }}">Berita</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{{ route('setting') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('setting*') ? 'active' : '' }}">
+                            <span class="micon bi bi-gear"></span><span class="mtext">Setting</span>
+                        </a>
+                    </li>
+                @endif
+                @if (Auth::user()->role == 'Super Admin')
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon bi bi-people"></span><span class="mtext">Pengguna</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="{{ route('users.super-admin') }}"
+                                    class="{{ request()->is('users/super-admin') ? 'active' : '' }}">Super Admin</a>
+                            </li>
+                            <li><a href="{{ route('users.admin-provinsi') }}"
+                                    class="{{ request()->is('users/admin-provinsi') ? 'active' : '' }}">Admin
+                                    Provinsi</a>
+                            </li>
+                            <li><a href="{{ route('users.admin-kabupaten') }}"
+                                    class="{{ request()->is('users/admin-kabupaten') ? 'active' : '' }}">Admin
+                                    Kabupaten</a>
+                            </li>
+                            <li><a href="{{ route('users.operator') }}"
+                                    class="{{ request()->is('users/operator') ? 'active' : '' }}">Operator Web</a>
+                            </li>
+                            <li><a href="{{ route('users.kadis-provinsi') }}"
+                                    class="{{ request()->is('users/kadis-provinsi') ? 'active' : '' }}">Kadis
+                                    Provinsi</a>
+                            </li>
+                            <li><a href="{{ route('users.kadis-kabupaten') }}"
+                                    class="{{ request()->is('users/kadis-kabupaten') ? 'active' : '' }}">Kadis
+                                    Kabupaten</a>
+                            </li>
 
-                    </ul>
-                </li>
-                <li>
-                    <a href="{{ route('pengunjung') }}"
-                        class="dropdown-toggle no-arrow {{ request()->is('pengunjung*') ? 'active' : '' }}">
-                        <span class="micon bi bi-files"></span><span class="mtext">Pengunjung</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('setting') }}"
-                        class="dropdown-toggle no-arrow {{ request()->is('setting*') ? 'active' : '' }}">
-                        <span class="micon bi bi-gear"></span><span class="mtext">Setting</span>
-                    </a>
-                </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{{ route('pengunjung') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('pengunjung*') ? 'active' : '' }}">
+                            <span class="micon bi bi-files"></span><span class="mtext">Pengunjung</span>
+                        </a>
+                    </li>
+                @endif
                 <li>
                     <a href="{{ url('/profile') }}"
                         class="dropdown-toggle no-arrow {{ request()->is('profile*') ? 'active' : '' }}">

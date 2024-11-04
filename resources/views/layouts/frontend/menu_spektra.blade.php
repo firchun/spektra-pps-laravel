@@ -70,38 +70,15 @@
                 <ul>
                     <li><a href="{{ url('/') }}" class="{{ Request::is('/') ? 'active' : '' }}">Home</a>
                     </li>
-                    <li class="dropdown"><a href="#"><span>Profile</span> <i
-                                class="bi bi-chevron-down toggle-dropdown"></i></a>
-                        <ul>
-                            <li><a href="{{ url('/sambutan') }}"
-                                    class="{{ Request::is('sambutan') ? 'text-primary' : '' }}">Sambutan
-                                    Kepala Dinas</a></li>
-                            <li><a href="{{ url('/visi-misi') }}"
-                                    class="{{ Request::is('visi-misi') ? 'text-primary' : '' }}">Visi
-                                    dan Misi Dinas</a></li>
-                            <li><a href="{{ url('/struktur') }}"
-                                    class="{{ Request::is('struktur') ? 'text-primary' : '' }}">Struktur Dinas</a></li>
-                            <li><a href="{{ url('/bidang') }}"
-                                    class="{{ Request::is('bidang') ? 'text-primary' : '' }}">Bidang dan Tugas</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="{{ url('/semua-berita') }}"
-                            class="{{ Request::is('semua-berita') ? 'active' : '' }}">Berita</a>
-                    </li>
-                    <li><a href="{{ url('/data-renstra') }}"
-                            class="{{ Request::is('renstra') ? 'active' : '' }}">Renstra</a></li>
-                    <li><a href="{{ url('/kontak') }}" class="{{ Request::is('kontak') ? 'active' : '' }}">Kontak</a>
-                    </li>
                     <li><a href="{{ url('/kotak-saran') }}"
                             class="{{ Request::is('kotak-saran') ? 'active' : '' }}">Kotak Saran</a></li>
-                    <li><a href="{{ url('/galeri') }}" class="{{ Request::is('galeri') ? 'active' : '' }}">Galeri</a>
-                    <li><a href="{{ url('/dashboard-spektra') }}"
-                            class="{{ Request::is('dashboard-spektra') ? 'active' : '' }}"> <img
-                                src="{{ asset('/') }}img/logo_spektra.png" alt=""
-                                style="height: 30px; margin-right:10px;">
-                            SPEKTRA</a>
-
+                    @guest
+                        <li><a href="{{ url('/login') }}" class="{{ Request::is('/login') ? 'active' : '' }}">Login</a>
+                        </li>
+                    @else
+                        <li><a href="{{ url('/home') }}" class="{{ Request::is('/home') ? 'active' : '' }}">Dashboard</a>
+                        </li>
+                    @endguest
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>

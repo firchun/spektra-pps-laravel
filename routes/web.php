@@ -3,15 +3,20 @@
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\BidangController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DistrikController;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KategoriBeritaController;
 use App\Http\Controllers\KlienController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\PengunjungController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RenstraController;
 use App\Http\Controllers\SaranController;
 use App\Http\Controllers\UmpController;
 use App\Http\Controllers\UserController;
+use App\Models\PendudukDistrik;
 use App\Models\Renstra;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -71,16 +76,41 @@ Route::get('/download/{file_name}', function ($file_name) {
 Auth::routes(['register' => false, 'reset' => false]);
 Route::middleware(['auth:web'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    //setting
-    Route::get('/setting', [App\Http\Controllers\SettingController::class, 'index'])->name('setting');
-    Route::put('/setting/update', [App\Http\Controllers\SettingController::class, 'update'])->name('setting.update');
-
+    //penduduk
+    Route::get('/penduduk-datatable', [PendudukController::class, 'getPendudukDataTable']);
+    //laporan
+    Route::get('/laporan/distrik', [LaporanController::class, 'distrik'])->name('laporan.distrik');
+    Route::get('/laporan/penduduk', [LaporanController::class, 'penduduk'])->name('laporan.penduduk');
     //akun managemen
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    //data pengunjung
-    Route::get('/pengunjung', [PengunjungController::class, 'index'])->name('pengunjung');
-    Route::get('/pengunjung-datatable', [PengunjungController::class, 'getPengunjungDataTable']);
+});
+Route::middleware(['auth:web', 'role:Admin Kabupaten'])->group(function () {
+    //penduduk managemen
+    Route::post('/penduduk/store',  [PendudukController::class, 'store'])->name('penduduk.store');
+    //distrik managemen
+    Route::get('/distrik-admin/{id_kabupaten}', [DistrikController::class, 'view'])->name('distrik-admin');
+    Route::get('/distrik/create', [DistrikController::class, 'create'])->name('distrik.create');
+    Route::post('/distrik/store',  [DistrikController::class, 'store'])->name('distrik.store');
+    Route::get('/distrik/edit/{id}',  [DistrikController::class, 'edit'])->name('distrik.edit');
+    Route::delete('/distrik/delete/{id}',  [DistrikController::class, 'destroy'])->name('distrik.delete');
+    Route::get('/distrik-datatable', [DistrikController::class, 'getDistrikDataTable']);
+});
+Route::middleware(['auth:web', 'role:Admin Provinsi'])->group(function () {
+    //distrik managemen
+    Route::get('/distrik', [DistrikController::class, 'index'])->name('distrik');
+    //kabupaten managemen
+    Route::get('/kabupaten', [KabupatenController::class, 'index'])->name('kabupaten');
+    Route::get('/kabupaten/create', [KabupatenController::class, 'create'])->name('kabupaten.create');
+    Route::post('/kabupaten/store',  [KabupatenController::class, 'store'])->name('kabupaten.store');
+    Route::get('/kabupaten/edit/{id}',  [KabupatenController::class, 'edit'])->name('kabupaten.edit');
+    Route::delete('/kabupaten/delete/{id}',  [KabupatenController::class, 'destroy'])->name('kabupaten.delete');
+    Route::get('/kabupaten-datatable', [KabupatenController::class, 'getKabupatenDataTable']);
+});
+Route::middleware(['auth:web', 'role:Operator'])->group(function () {
+    //setting
+    Route::get('/setting', [App\Http\Controllers\SettingController::class, 'index'])->name('setting');
+    Route::put('/setting/update', [App\Http\Controllers\SettingController::class, 'update'])->name('setting.update');
     //bidang managemen
     Route::get('/data-bidang', [BidangController::class, 'index'])->name('data-bidang');
     Route::post('/bidang/store',  [BidangController::class, 'store'])->name('bidang.store');
@@ -130,11 +160,19 @@ Route::middleware(['auth:web'])->group(function () {
     Route::delete('/saran/delete/{id}',  [SaranController::class, 'destroy'])->name('saran.delete');
     Route::get('/saran-datatable', [SaranController::class, 'getSaranDataTable']);
 });
-Route::middleware(['auth:web', 'role:Admin'])->group(function () {
+Route::middleware(['auth:web', 'role:Super Admin'])->group(function () {
+    //data pengunjung
+    Route::get('/pengunjung', [PengunjungController::class, 'index'])->name('pengunjung');
+    Route::get('/pengunjung-datatable', [PengunjungController::class, 'getPengunjungDataTable']);
     //user managemen
-    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/users/super-admin', [UserController::class, 'SuperAdmin'])->name('users.super-admin');
+    Route::get('/users/admin-provinsi', [UserController::class, 'AdminProvinsi'])->name('users.admin-provinsi');
+    Route::get('/users/admin-kabupaten', [UserController::class, 'AdminKabupaten'])->name('users.admin-kabupaten');
+    Route::get('/users/operator', [UserController::class, 'Operator'])->name('users.operator');
+    Route::get('/users/kadis-provinsi', [UserController::class, 'KadisProvinsi'])->name('users.kadis-provinsi');
+    Route::get('/users/kadis-kabupaten', [UserController::class, 'KadisKabupaten'])->name('users.kadis-kabupaten');
     Route::post('/users/store',  [UserController::class, 'store'])->name('users.store');
     Route::get('/users/edit/{id}',  [UserController::class, 'edit'])->name('users.edit');
     Route::delete('/users/delete/{id}',  [UserController::class, 'destroy'])->name('users.delete');
-    Route::get('/users-datatable', [UserController::class, 'getUsersDataTable']);
+    Route::get('/users-datatable/{role}', [UserController::class, 'getUsersDataTable']);
 });

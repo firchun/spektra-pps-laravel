@@ -14,22 +14,60 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function SuperAdmin()
     {
         $data = [
-            'title' => 'Users',
-            'users' => User::all()
+            'title' => 'Super Admin',
+            'role' => 'Super Admin'
         ];
-        return view('admin.users.index', $data);
+        return view('admin.users.super_admin', $data);
     }
-    public function getUsersDataTable()
+    public function AdminProvinsi()
     {
-        $users = User::select(['id', 'name', 'email', 'created_at', 'updated_at', 'role', 'avatar'])->orderByDesc('id');
+        $data = [
+            'title' => 'Admin Provinsi',
+            'role' => 'Admin Provinsi'
+        ];
+        return view('admin.users.admin_provinsi', $data);
+    }
+    public function AdminKabupaten()
+    {
+        $data = [
+            'title' => 'Admin Kabupaten',
+            'role' => 'Admin Kabupaten'
+        ];
+        return view('admin.users.admin_kabupaten', $data);
+    }
+    public function Operator()
+    {
+        $data = [
+            'title' => 'Operator',
+            'role' => 'Operator'
+        ];
+        return view('admin.users.operator', $data);
+    }
+    public function KadisProvinsi()
+    {
+        $data = [
+            'title' => 'Kadis Provinsi',
+            'role' => 'Kadis Provinsi'
+        ];
+        return view('admin.users.kadis_provinsi', $data);
+    }
+    public function KadisKabupaten()
+    {
+        $data = [
+            'title' => 'Kadis Kabupaten',
+            'role' => 'Kadis Kabupaten'
+        ];
+        return view('admin.users.kadis_kabupaten', $data);
+    }
+    public function getUsersDataTable($role)
+    {
+        $users = User::where('role', $role)->orderByDesc('id');
 
         return Datatables::of($users)
-            ->addColumn('avatar', function ($user) {
-                return view('admin.users.components.avatar', compact('user'));
-            })
+
             ->addColumn('action', function ($user) {
                 return view('admin.users.components.actions', compact('user'));
             })
@@ -37,7 +75,7 @@ class UserController extends Controller
                 return '<span class="badge bg-label-primary">' . $user->role . '</span>';
             })
 
-            ->rawColumns(['action', 'role', 'avatar'])
+            ->rawColumns(['action', 'role'])
             ->make(true);
     }
     public function store(Request $request)
@@ -57,6 +95,7 @@ class UserController extends Controller
 
         if ($request->filled('id')) {
             $usersData = [
+                'id_kabupaten' => $request->input('id_kabupaten') ?? null,
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
                 'role' => $request->input('role'),

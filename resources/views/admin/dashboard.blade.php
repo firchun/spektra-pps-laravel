@@ -2,9 +2,9 @@
 
 @section('content')
     @include('layouts.backend.alert')
-    <div class="title pb-20">
+    {{-- <div class="title pb-20">
         <h2 class="h3 mb-0">Dashboard Overview</h2>
-    </div>
+    </div> --}}
     <div class="mb-3">
         <div class="jumbotron  text-center"
             style="background: rgba(0, 179, 255, 0.694);backdrop-filter: blur(10px); border-radius:20px;">
