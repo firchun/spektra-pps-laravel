@@ -18,37 +18,44 @@
                         <marquee>
                             Upah Minimum Provinsi :
                             @php
-                                $ump = App\Models\Ump::latest()->first();
-                                $upah_sekarang = $ump->upah;
-                                $upah_sebelumnya = App\Models\Ump::where('id', '<', $ump->id)
-                                    ->orderBy('id', 'desc')
-                                    ->value('upah');
+                                $ump = App\Models\Ump::latest()->first(); // Ambil data UMP terbaru
 
-                                // Cek apakah upah sebelumnya tidak kosong atau nol untuk menghindari pembagian nol
-                                if ($upah_sebelumnya > 0) {
-                                    // Hitung selisih dan persentase perubahan
-                                    $selisih = $upah_sekarang - $upah_sebelumnya;
-                                    $persentase_perubahan = ($selisih / $upah_sebelumnya) * 100;
+                                if ($ump) {
+                                    // Cek apakah $ump tidak null
+                                    $upah_sekarang = $ump->upah;
+                                    $upah_sebelumnya = App\Models\Ump::where('id', '<', $ump->id)
+                                        ->orderBy('id', 'desc')
+                                        ->value('upah');
 
-                                    // Tentukan apakah itu kenaikan atau penurunan
-                                    if ($persentase_perubahan > 0) {
-                                        echo 'Rp ' .
-                                            number_format($ump->upah) .
-                                            ' Mengalami Kenaikan Sebesar : ' .
-                                            number_format($persentase_perubahan, 2) .
-                                            '%';
-                                    } elseif ($persentase_perubahan < 0) {
-                                        return 'Rp ' .
-                                            number_format($ump->upah) .
-                                            ' Mengalami Penurunan Sebesar: ' .
-                                            number_format(abs($persentase_perubahan), 2) .
-                                            '%';
+                                    // Cek apakah upah sebelumnya tidak kosong atau nol untuk menghindari pembagian nol
+                                    if ($upah_sebelumnya > 0) {
+                                        // Hitung selisih dan persentase perubahan
+                                        $selisih = $upah_sekarang - $upah_sebelumnya;
+                                        $persentase_perubahan = ($selisih / $upah_sebelumnya) * 100;
+
+                                        // Tentukan apakah itu kenaikan atau penurunan
+                                        if ($persentase_perubahan > 0) {
+                                            echo 'Rp ' .
+                                                number_format($ump->upah) .
+                                                ' Mengalami Kenaikan Sebesar : ' .
+                                                number_format($persentase_perubahan, 2) .
+                                                '%';
+                                        } elseif ($persentase_perubahan < 0) {
+                                            echo 'Rp ' .
+                                                number_format($ump->upah) .
+                                                ' Mengalami Penurunan Sebesar: ' .
+                                                number_format(abs($persentase_perubahan), 2) .
+                                                '%';
+                                        } else {
+                                            echo 'Rp ' . number_format($ump->upah);
+                                        }
                                     } else {
-                                        echo 'Rp ' . number_format($ump->upah);
+                                        // Jika upah sebelumnya tidak valid, tampilkan pesan
+                                        echo 'Upah sebelumnya tidak valid.';
                                     }
                                 } else {
-                                    // Jika upah sebelumnya tidak valid, tampilkan pesan
-                                    echo 0;
+                                    // Jika tidak ada data UMP, tampilkan pesan
+                                    echo 'Tidak ada data UMP terbaru.';
                                 }
                             @endphp
                         </marquee>
