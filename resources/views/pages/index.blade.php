@@ -142,8 +142,8 @@
             <div class="row gy-3 justify-content-center">
 
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <img src="{{ $setting->foto_dinas ? Storage::url($setting->foto_dinas) : asset('img/default.webp') }}"
-                        alt="" class="img-fluid shadow-lg" style="border-radius: 20px;">
+                    <img src="{{ isset($setting) && $setting->foto_dinas ? Storage::url($setting->foto_dinas) : asset('img/default.webp') }}"
+                        alt="Foto Dinas" class="img-fluid shadow-lg" style="border-radius: 20px;">
                 </div>
 
                 <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
