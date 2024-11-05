@@ -10,6 +10,7 @@ use App\Http\Controllers\KategoriBeritaController;
 use App\Http\Controllers\KepemilikanPerusahaanController;
 use App\Http\Controllers\KlienController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\PengunjungController;
 use App\Http\Controllers\PerusahaanController;
@@ -55,6 +56,8 @@ Route::get('/struktur', [App\Http\Controllers\PageController::class, 'struktur']
 Route::get('/bidang', [App\Http\Controllers\PageController::class, 'bidang']);
 Route::get('/visi-misi', [App\Http\Controllers\PageController::class, 'visi_misi']);
 Route::get('/dashboard-spektra', [App\Http\Controllers\PageController::class, 'dashboard']);
+Route::get('/launching', [App\Http\Controllers\PageController::class, 'launching']);
+Route::get('/get-visitor', [PageController::class, 'getVisitor']);
 //simpan saran
 Route::post('/saran/store',  [SaranController::class, 'store'])->name('saran.store');
 

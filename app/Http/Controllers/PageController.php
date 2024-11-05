@@ -7,6 +7,7 @@ use App\Models\Distrik;
 use App\Models\Galeri;
 use App\Models\Kabupaten;
 use App\Models\PendudukDistrik;
+use App\Models\Pengunjung;
 use App\Models\Perusahaan;
 use App\Models\Renstra;
 use Illuminate\Http\Request;
@@ -127,6 +128,13 @@ class PageController extends Controller
         ];
         return view('pages.bidang', $data);
     }
+    public function launching()
+    {
+        $data = [
+            'title' => 'Launching',
+        ];
+        return view('pages.launching', $data);
+    }
     public function dashboard()
     {
 
@@ -171,5 +179,15 @@ class PageController extends Controller
 
         ];
         return view('pages.dashboard', $data);
+    }
+    public function getVisitor()
+    {
+        $today = Pengunjung::whereDate('created_at', now()->toDateString())->count();
+        $total = Pengunjung::count();
+
+        return response()->json([
+            'today' => $today,
+            'total' => $total
+        ]);
     }
 }
