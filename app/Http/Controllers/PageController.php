@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\Distrik;
 use App\Models\Galeri;
+use App\Models\Kabupaten;
+use App\Models\PendudukDistrik;
+use App\Models\Perusahaan;
 use App\Models\Renstra;
 use Illuminate\Http\Request;
 
@@ -13,7 +17,11 @@ class PageController extends Controller
     {
         $data = [
             'title' => 'Home',
-            'berita' => Berita::with(['user', 'kategori'])->where('tampilkan', 1)->latest()->limit(4)->get()
+            'berita' => Berita::with(['user', 'kategori'])->where('tampilkan', 1)->latest()->limit(4)->get(),
+            'total_distrik' => Distrik::count(),
+            'total_kabupaten' => Kabupaten::count(),
+            'total_perusahaan' => Perusahaan::count(),
+            'total_berita' => Berita::where('tampilkan', 1)->count(),
         ];
         return view('pages.index', $data);
     }
@@ -121,19 +129,45 @@ class PageController extends Controller
     }
     public function dashboard()
     {
-        $totalKabupaten = 4;
-        $totalSdm = 200;
+
 
         // Dummy company data for the chart
-        $companyData = [
-            'labels' => ['Company A', 'Company B', 'Company C', 'Company D', 'Company E'],
-            'data' => [150, 200, 120, 180, 90] // Example numbers for each company
+        $companyData = Perusahaan::select('nama_perusahaan')
+            ->selectRaw('(jumlah_tkl + jumlah_tka + jumlah_oap) as total_karyawan')
+            ->get()
+            ->reduce(function ($result, $item) {
+                $result['labels'][] = $item->nama_perusahaan;
+                $result['data'][] = $item->total_karyawan;
+                return $result;
+            }, ['labels' => [], 'data' => []]);
+        $perusahaanData = Perusahaan::selectRaw('
+        SUM(jumlah_tkl) as total_tkl,
+        SUM(jumlah_tka) as total_tka,
+        SUM(jumlah_oap) as total_oap
+    ')
+            ->first();
+
+        $pieChartData = [
+            'labels' => ['Tenaga Kerja Lokal', 'Tenaga Kerja Asing', 'Orang Asli Papua'],
+            'data' => [
+                $perusahaanData->total_tkl,
+                $perusahaanData->total_tka,
+                $perusahaanData->total_oap
+            ]
         ];
         $data = [
             'title' => 'Dashboard Sepktra',
-            'totalKabupaten' => $totalKabupaten,
-            'totalSdm' => $totalSdm,
-            'companyData' => $companyData
+            'companyData' => $companyData,
+            'pieChartData' => $pieChartData,
+            'total_distrik' => Distrik::count(),
+            'total_kabupaten' => Kabupaten::count(),
+            'total_perusahaan' => Perusahaan::count(),
+            'total_penduduk' => PendudukDistrik::sum('jumlah'),
+            'total_pengangguran' => PendudukDistrik::sum('jumlah_pengangguran'),
+            'total_produktif' => PendudukDistrik::sum('jumlah_produktif'),
+            'total_tkl' => Perusahaan::sum('jumlah_tkl'),
+            'total_tka' => Perusahaan::sum('jumlah_tka'),
+            'total_oap' => Perusahaan::sum('jumlah_oap'),
 
         ];
         return view('pages.dashboard', $data);

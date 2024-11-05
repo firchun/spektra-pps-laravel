@@ -30,7 +30,7 @@ class DistrikController extends Controller
     }
     public function getDistrikDataTable()
     {
-        $data = Distrik::orderByDesc('id');
+        $data = Distrik::with(['kabupaten'])->orderByDesc('id');
         $user = Auth::user();
         if ($user->role == 'Admin Kabupaten') {
             $data->where('id_kabupaten', Auth::user()->id_kabupaten);

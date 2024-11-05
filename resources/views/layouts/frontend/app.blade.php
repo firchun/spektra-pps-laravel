@@ -12,7 +12,7 @@
     <!-- Open Graph Tags -->
     <meta property="og:title" content="Disnakertrans Papua Selatan">
     <meta property="og:description" content="Dinas Ketenagakerjaan Papua Selatan, Papua Selatan, SDM Papua selatan">
-    <meta property="og:image" content="{{ asset('frontend_theme') }}/assets/img/logo.png">
+    <meta property="og:image" content="{{ asset('img') }}/logo.png">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
 
@@ -25,8 +25,8 @@
 
     <title>Disnakertrans Papua Selatan</title>
     <!-- Favicons -->
-    <link href="{{ asset('frontend_theme') }}/assets/img/logo.png" rel="icon">
-    <link href="{{ asset('frontend_theme') }}/assets/img/logo.png" rel="apple-touch-icon">
+    <link href="{{ asset('img') }}/logo.png" rel="icon">
+    <link href="{{ asset('img') }}/logo.png" rel="apple-touch-icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">

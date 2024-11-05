@@ -143,6 +143,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ url('/perusahaan') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('perusahaan') ? 'active' : '' }}">
+                            <span class="micon bi bi-buildings"></span><span class="mtext">Perusahaan</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ url('laporan/distrik') }}"
                             class="dropdown-toggle no-arrow {{ request()->is('laporan/distrik') ? 'active' : '' }}">
                             <span class="micon bi bi-files"></span><span class="mtext">Laporan Distrik</span>
@@ -160,6 +166,36 @@
                         <a href="{{ route('kabupaten') }}"
                             class="dropdown-toggle no-arrow {{ request()->is('kabupaten*') ? 'active' : '' }}">
                             <span class="micon bi bi-map"></span><span class="mtext">Kabupaten</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('sektor') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('sektor*') ? 'active' : '' }}">
+                            <span class="micon bi bi-folder"></span><span class="mtext">Sektor Perusahaan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('kepemilikan-perusahaan') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('kepemilikan-perusahaan*') ? 'active' : '' }}">
+                            <span class="micon bi bi-folder"></span><span class="mtext">Kepemilikan Perusahaan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('status-perusahaan') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('status-perusahaan*') ? 'active' : '' }}">
+                            <span class="micon bi bi-folder"></span><span class="mtext">Status Perusahaan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('skala-objek') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('skala-objek*') ? 'active' : '' }}">
+                            <span class="micon bi bi-folder"></span><span class="mtext">Skala Objek</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('status-modal') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('status-modal*') ? 'active' : '' }}">
+                            <span class="micon bi bi-cash"></span><span class="mtext">Status Modal</span>
                         </a>
                     </li>
                     <li>

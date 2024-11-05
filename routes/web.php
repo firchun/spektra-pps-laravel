@@ -7,16 +7,23 @@ use App\Http\Controllers\DistrikController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KategoriBeritaController;
+use App\Http\Controllers\KepemilikanPerusahaanController;
 use App\Http\Controllers\KlienController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\PengunjungController;
+use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RenstraController;
 use App\Http\Controllers\SaranController;
+use App\Http\Controllers\SektorController;
+use App\Http\Controllers\SkalaObjekPengawasanController;
+use App\Http\Controllers\StatusModalController;
+use App\Http\Controllers\StatusPerusahaanController;
 use App\Http\Controllers\UmpController;
 use App\Http\Controllers\UserController;
 use App\Models\PendudukDistrik;
+use App\Models\Perusahaan;
 use App\Models\Renstra;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -88,17 +95,61 @@ Route::middleware(['auth:web'])->group(function () {
 Route::middleware(['auth:web', 'role:Admin Kabupaten'])->group(function () {
     //penduduk managemen
     Route::post('/penduduk/store',  [PendudukController::class, 'store'])->name('penduduk.store');
+    //perusahaan managemen
+    Route::get('/perusahaan', [PerusahaanController::class, 'index'])->name('perusahaan');
+    Route::post('/perusahaan/store',  [PerusahaanController::class, 'store'])->name('perusahaan.store');
+    Route::get('/perusahaan/edit/{id}',  [PerusahaanController::class, 'edit'])->name('perusahaan.edit');
+    Route::delete('/perusahaan/delete/{id}',  [PerusahaanController::class, 'destroy'])->name('perusahaan.delete');
+    Route::get('/perusahaan-datatable', [PerusahaanController::class, 'getPerusahaanDataTable']);
     //distrik managemen
     Route::get('/distrik-admin/{id_kabupaten}', [DistrikController::class, 'view'])->name('distrik-admin');
     Route::get('/distrik/create', [DistrikController::class, 'create'])->name('distrik.create');
     Route::post('/distrik/store',  [DistrikController::class, 'store'])->name('distrik.store');
     Route::get('/distrik/edit/{id}',  [DistrikController::class, 'edit'])->name('distrik.edit');
     Route::delete('/distrik/delete/{id}',  [DistrikController::class, 'destroy'])->name('distrik.delete');
+});
+
+Route::middleware(['auth:web', 'role:Admin Provinsi,Admin Kabupaten,Kadis Provinsi,Kadis Kabupaten'])->group(function () {
     Route::get('/distrik-datatable', [DistrikController::class, 'getDistrikDataTable']);
 });
 Route::middleware(['auth:web', 'role:Admin Provinsi'])->group(function () {
     //distrik managemen
     Route::get('/distrik', [DistrikController::class, 'index'])->name('distrik');
+    //sektor managemen
+    Route::get('/sektor', [SektorController::class, 'index'])->name('sektor');
+    Route::get('/sektor/create', [SektorController::class, 'create'])->name('sektor.create');
+    Route::post('/sektor/store',  [SektorController::class, 'store'])->name('sektor.store');
+    Route::get('/sektor/edit/{id}',  [SektorController::class, 'edit'])->name('sektor.edit');
+    Route::delete('/sektor/delete/{id}',  [SektorController::class, 'destroy'])->name('sektor.delete');
+    Route::get('/sektor-datatable', [SektorController::class, 'getSektorDataTable']);
+    //kepemilikan perusahaan managemen
+    Route::get('/kepemilikan-perusahaan', [KepemilikanPerusahaanController::class, 'index'])->name('kepemilikan-perusahaan');
+    Route::get('/kepemilikan-perusahaan/create', [KepemilikanPerusahaanController::class, 'create'])->name('kepemilikan-perusahaan.create');
+    Route::post('/kepemilikan-perusahaan/store',  [KepemilikanPerusahaanController::class, 'store'])->name('kepemilikan-perusahaan.store');
+    Route::get('/kepemilikan-perusahaan/edit/{id}',  [KepemilikanPerusahaanController::class, 'edit'])->name('kepemilikan-perusahaan.edit');
+    Route::delete('/kepemilikan-perusahaan/delete/{id}',  [KepemilikanPerusahaanController::class, 'destroy'])->name('kepemilikan-perusahaan.delete');
+    Route::get('/kepemilikan-perusahaan-datatable', [KepemilikanPerusahaanController::class, 'getKepemilikanPerusahaanDataTable']);
+    //skala objek managemen
+    Route::get('/skala-objek', [SkalaObjekPengawasanController::class, 'index'])->name('skala-objek');
+    Route::get('/skala-objek/create', [SkalaObjekPengawasanController::class, 'create'])->name('skala-objek.create');
+    Route::post('/skala-objek/store',  [SkalaObjekPengawasanController::class, 'store'])->name('skala-objek.store');
+    Route::get('/skala-objek/edit/{id}',  [SkalaObjekPengawasanController::class, 'edit'])->name('skala-objek.edit');
+    Route::delete('/skala-objek/delete/{id}',  [SkalaObjekPengawasanController::class, 'destroy'])->name('skala-objek.delete');
+    Route::get('/skala-objek-datatable', [SkalaObjekPengawasanController::class, 'getSkalaObjekDataTable']);
+    //status perusahaan managemen
+    Route::get('/status-perusahaan', [StatusPerusahaanController::class, 'index'])->name('status-perusahaan');
+    Route::get('/status-perusahaan/create', [StatusPerusahaanController::class, 'create'])->name('status-perusahaan.create');
+    Route::post('/status-perusahaan/store',  [StatusPerusahaanController::class, 'store'])->name('status-perusahaan.store');
+    Route::get('/status-perusahaan/edit/{id}',  [StatusPerusahaanController::class, 'edit'])->name('status-perusahaan.edit');
+    Route::delete('/status-perusahaan/delete/{id}',  [StatusPerusahaanController::class, 'destroy'])->name('status-perusahaan.delete');
+    Route::get('/status-perusahaan-datatable', [StatusPerusahaanController::class, 'getStatusPerusahaanDataTable']);
+    //status modal managemen
+    Route::get('/status-modal', [StatusModalController::class, 'index'])->name('status-modal');
+    Route::get('/status-modal/create', [StatusModalController::class, 'create'])->name('status-modal.create');
+    Route::post('/status-modal/store',  [StatusModalController::class, 'store'])->name('status-modal.store');
+    Route::get('/status-modal/edit/{id}',  [StatusModalController::class, 'edit'])->name('status-modal.edit');
+    Route::delete('/status-modal/delete/{id}',  [StatusModalController::class, 'destroy'])->name('status-modal.delete');
+    Route::get('/status-modal-datatable', [StatusModalController::class, 'getStatusModalDataTable']);
     //kabupaten managemen
     Route::get('/kabupaten', [KabupatenController::class, 'index'])->name('kabupaten');
     Route::get('/kabupaten/create', [KabupatenController::class, 'create'])->name('kabupaten.create');

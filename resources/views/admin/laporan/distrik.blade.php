@@ -14,6 +14,9 @@
                         <tr>
                         <tr>
                             <th>ID</th>
+                            @if (Auth::user()->role == 'Admin Provinsi' || Auth::user()->role == 'Kadis Provinsi')
+                                <th>Kabupaten</th>
+                            @endif
                             <th>Distrik</th>
                             <th>Luas Kawasan</th>
                             <th>Penduduk</th>
@@ -26,6 +29,9 @@
                         <tr>
                         <tr>
                             <th>ID</th>
+                            @if (Auth::user()->role == 'Admin Provinsi' || Auth::user()->role == 'Kadis Provinsi')
+                                <th>Kabupaten</th>
+                            @endif
                             <th>Distrik</th>
                             <th>Luas Kawasan</th>
                             <th>Penduduk</th>
@@ -50,8 +56,12 @@
                         data: 'id',
                         name: 'id'
                     },
-
-                    {
+                    @if (Auth::user()->role == 'Admin Provinsi' || Auth::user()->role == 'Kadis Provinsi')
+                        {
+                            data: 'kabupaten.nama_kabupaten',
+                            name: 'kabupaten.nama_kabupaten'
+                        },
+                    @endif {
                         data: 'nama_distrik',
                         name: 'nama_distrik'
                     },

@@ -18,22 +18,18 @@
                         <marquee>
                             Upah Minimum Provinsi :
                             @php
-                                $ump = App\Models\Ump::latest()->first(); // Ambil data UMP terbaru
+                                $ump = App\Models\Ump::latest()->first();
 
                                 if ($ump) {
-                                    // Cek apakah $ump tidak null
                                     $upah_sekarang = $ump->upah;
                                     $upah_sebelumnya = App\Models\Ump::where('id', '<', $ump->id)
                                         ->orderBy('id', 'desc')
                                         ->value('upah');
 
-                                    // Cek apakah upah sebelumnya tidak kosong atau nol untuk menghindari pembagian nol
                                     if ($upah_sebelumnya > 0) {
-                                        // Hitung selisih dan persentase perubahan
                                         $selisih = $upah_sekarang - $upah_sebelumnya;
                                         $persentase_perubahan = ($selisih / $upah_sebelumnya) * 100;
 
-                                        // Tentukan apakah itu kenaikan atau penurunan
                                         if ($persentase_perubahan > 0) {
                                             echo 'Rp ' .
                                                 number_format($ump->upah) .
@@ -50,11 +46,9 @@
                                             echo 'Rp ' . number_format($ump->upah);
                                         }
                                     } else {
-                                        // Jika upah sebelumnya tidak valid, tampilkan pesan
                                         echo 'Upah sebelumnya tidak valid.';
                                     }
                                 } else {
-                                    // Jika tidak ada data UMP, tampilkan pesan
                                     echo 'Tidak ada data UMP terbaru.';
                                 }
                             @endphp

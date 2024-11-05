@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 @endforeach
-                @if (!$items)
+                @if (!$items || $items->count() <= 0)
                     <div class="carousel-item active" style="position: relative;">
                         <img src="{{ asset('auth') }}/assets/img/login-bg.png"
                             style="width: 100%; height:80vh; object-fit:cover;">
@@ -177,30 +177,45 @@
                 <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
                     <i class="bi bi-journal-richtext"></i>
                     <div class="stats-item">
-                        <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="1"
-                            class="purecounter"></span>
+                        <span data-purecounter-start="0" data-purecounter-end="{{ $total_kabupaten }}"
+                            data-purecounter-duration="1" class="purecounter"></span>
                         <p>Kabupaten</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
                     <i class="bi bi-journal-richtext"></i>
                     <div class="stats-item">
-                        <span data-purecounter-start="0" data-purecounter-end="100" data-purecounter-duration="1"
-                            class="purecounter"></span>
+                        <span data-purecounter-start="0" data-purecounter-end="{{ $total_distrik }}"
+                            data-purecounter-duration="1" class="purecounter"></span>
+                        <p>Distrik</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
+                    <i class="bi bi-journal-richtext"></i>
+                    <div class="stats-item">
+                        <span data-purecounter-start="0" data-purecounter-end="{{ $total_perusahaan }}"
+                            data-purecounter-duration="1" class="purecounter"></span>
                         <p>Perusahaan</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
                     <i class="bi bi-journal-richtext"></i>
                     <div class="stats-item">
-                        <span data-purecounter-start="0" data-purecounter-end="100" data-purecounter-duration="1"
-                            class="purecounter"></span>
+                        <span data-purecounter-start="0" data-purecounter-end="{{ $total_berita }}"
+                            data-purecounter-duration="1" class="purecounter"></span>
                         <p>Berita</p>
                     </div>
                 </div>
 
 
 
+                <div class="col-12 text-center mt-4">
+                    <a href="{{ url('dashboard-spektra') }}" class="btn btn-outline-primary btn-lg"><img
+                            src="{{ asset('/') }}img/logo_spektra.png" alt=""
+                            style="height: 40px; margin-right:10px;">
+                        Lihat Semua Data pada
+                        SPEKTRA</a>
+                </div>
             </div>
 
         </div>
