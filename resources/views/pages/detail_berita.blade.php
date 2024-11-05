@@ -18,8 +18,8 @@
 
         <div class="container px-4" style="margin-bottom:50px;">
             <div class="text-center py-3">
-                <img src="{{ asset('img') }}/default.webp" class=" mb-4" alt="foto berita"
-                    style="max-height: 400px; object-fit:cover;">
+                <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/default.webp') }}"class=" mb-4"
+                    alt="foto berita" style="max-height: 400px; object-fit:cover;">
             </div>
             {!! $berita->isi_berita !!}
             <hr>
