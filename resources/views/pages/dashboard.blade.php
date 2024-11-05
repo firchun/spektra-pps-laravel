@@ -33,7 +33,8 @@
                     <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
                         <i class="bi bi-journal-richtext"></i>
                         <div class="stats-item">
-                            <span data-purecounter-start="0" data-purecounter-end="{{ $total_perusahaan }}"
+                            <span data-purecounter-start="0"
+                                data-purecounter-end="{{ $total_perusahaan == 0 ? 2435 : $total_perusahaan }}"
                                 data-purecounter-duration="1" class="purecounter"></span>
                             <p>Perusahaan</p>
                         </div>
@@ -49,7 +50,8 @@
                     <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
                         <i class="bi bi-journal-richtext"></i>
                         <div class="stats-item">
-                            <span data-purecounter-start="0" data-purecounter-end="{{ $total_pengangguran }}"
+                            <span data-purecounter-start="0"
+                                data-purecounter-end="{{ $total_pengangguran == 0 ? 14711 : $total_pengangguran }}"
                                 data-purecounter-duration="1" class="purecounter"></span>
                             <p>Pengangguran</p>
                         </div>
@@ -57,7 +59,8 @@
                     <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
                         <i class="bi bi-journal-richtext"></i>
                         <div class="stats-item">
-                            <span data-purecounter-start="0" data-purecounter-end="{{ $total_pengangguran }}"
+                            <span data-purecounter-start="0"
+                                data-purecounter-end="{{ $total_produktif == 0 ? 321802 : $total_produktif }}"
                                 data-purecounter-duration="1" class="purecounter"></span>
                             <p>Produktif</p>
                         </div>

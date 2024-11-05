@@ -109,6 +109,7 @@ class UserController extends Controller
             $message = 'user updated successfully';
         } else {
             $usersData = [
+                'id_kabupaten' => $request->input('id_kabupaten') ?? null,
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
                 'role' => $request->input('role'),
