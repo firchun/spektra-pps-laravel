@@ -82,6 +82,8 @@
                 });
             };
             $('#saveCustomerBtn').click(function() {
+                $('#saveCustomerBtnSpinner').show();
+                $('#saveCustomerBtn').prop('disabled', true);
                 var formData = $('#userForm').serialize();
 
                 $.ajax({
@@ -92,17 +94,23 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
+                        $('#saveCustomerBtnSpinner').hide();
+                        $('#saveCustomerBtn').prop('disabled', false);
                         alert(response.message);
                         // Refresh DataTable setelah menyimpan perubahan
                         $('#datatable-customers').DataTable().ajax.reload();
                         $('#customersModal').modal('hide');
                     },
                     error: function(xhr) {
+                        $('#saveCustomerBtnSpinner').hide();
+                        $('#saveCustomerBtn').prop('disabled', false);
                         alert('Terjadi kesalahan: ' + xhr.responseText);
                     }
                 });
             });
             $('#createCustomerBtn').click(function() {
+                $('#createCustomerBtnSpinner').show();
+                $('#createCustomerBtn').prop('disabled', true);
                 var formData = new FormData($('#createUserForm')[0]); // Use FormData to handle file uploads
 
                 $.ajax({
@@ -115,6 +123,8 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
+                        $('#createCustomerBtnSpinner').hide();
+                        $('#createCustomerBtn').prop('disabled', false);
                         alert(response.message);
                         $('#createJudul').val('');
                         $('#createFile').val('');
@@ -126,6 +136,8 @@
                         $('#create').modal('hide');
                     },
                     error: function(xhr) {
+                        $('#createCustomerBtnSpinner').hide();
+                        $('#createCustomerBtn').prop('disabled', false);
                         alert('Terjadi kesalahan: ' + xhr.responseText);
                     }
                 });

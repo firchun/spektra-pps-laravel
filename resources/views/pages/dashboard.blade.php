@@ -12,11 +12,8 @@
 
         <!-- Stats Section -->
         <section id="stats" class="stats section">
-
             <div class="container" data-aos="fade-up" data-aos-delay="100">
-
                 <div class="row justify-content-center">
-
                     <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
                         <i class="bi bi-journal-richtext"></i>
                         <div class="stats-item">

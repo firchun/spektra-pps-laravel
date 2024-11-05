@@ -36,7 +36,7 @@ class GaleriController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'jenis' => 'required|string|max:255',
-            'file' => $request->has('id') ? 'sometimes|file|mimes:jpeg,png,jpg,gif,svg|max:2048' : 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => $request->has('id') ? 'sometimes|file|mimes:jpeg,png,jpg,gif,svg|max:10048' : 'required|file|mimes:jpeg,png,jpg,gif,svg|max:10048',
         ]);
 
         if ($request->hasFile('file')) {

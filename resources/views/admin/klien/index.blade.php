@@ -26,8 +26,14 @@
                             <label>Logo Instansi / Perusahaan</label>
                             <input type="file" name="logo" id="createLogo" class="form-control">
                         </div>
-                        <button type="button" id="createCustomerBtn" class="btn btn-primary"><i class="bi bi-plus"></i>
-                            Tambah</button>
+                        <button type="button" id="createCustomerBtn" class="btn btn-primary">
+                            <div class="spinner-grow text-light spinner-grow-sm" id="saveCustomerBtnSpinner" role="status"
+                                style="display: none;">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <i class="bi bi-plus"></i>
+                            Tambah
+                        </button>
                     </form>
                 </div>
             </div>

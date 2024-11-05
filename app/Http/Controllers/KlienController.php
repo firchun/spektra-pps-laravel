@@ -35,7 +35,7 @@ class KlienController extends Controller
         // Validate the inputs
         $request->validate([
             'nama' => 'required|string|max:255',
-            'logo' => $request->has('id') ? 'sometimes|file|mimes:jpeg,png,jpg,gif,svg|max:2048' : 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'logo' => $request->has('id') ? 'sometimes|file|mimes:jpeg,png,jpg,gif,svg|max:5048' : 'required|file|mimes:jpeg,png,jpg,gif,svg|max:5048',
         ]);
 
         if ($request->hasFile('logo')) {

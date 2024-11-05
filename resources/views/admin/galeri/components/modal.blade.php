@@ -69,7 +69,13 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveCustomerBtn">Save</button>
+                <button type="button" class="btn btn-primary" id="saveCustomerBtn">
+                    <div class="spinner-grow text-light spinner-grow-sm" id="saveCustomerBtnSpinner" role="status"
+                        style="display: none;">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    Save
+                </button>
             </div>
         </div>
     </div>
@@ -131,7 +137,13 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="createCustomerBtn">Save</button>
+                        <button type="button" class="btn btn-primary" id="createCustomerBtn">
+                            <div class="spinner-grow text-light spinner-grow-sm" id="createCustomerBtnSpinner"
+                                role="status" style="display: none;">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            Save
+                        </button>
                     </div>
                 </form>
             </div>
