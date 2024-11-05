@@ -51,7 +51,7 @@
                         <i class="bi bi-journal-richtext"></i>
                         <div class="stats-item">
                             <span data-purecounter-start="0"
-                                data-purecounter-end="{{ $total_pengangguran == 0 ? 14711 : $total_pengangguran }}"
+                                data-purecounter-end="{{ $total_pengangguran <= 10 ? 14711 : $total_pengangguran }}"
                                 data-purecounter-duration="1" class="purecounter"></span>
                             <p>Pengangguran</p>
                         </div>
@@ -60,7 +60,7 @@
                         <i class="bi bi-journal-richtext"></i>
                         <div class="stats-item">
                             <span data-purecounter-start="0"
-                                data-purecounter-end="{{ $total_produktif == 0 ? 321802 : $total_produktif }}"
+                                data-purecounter-end="{{ $total_produktif <= 10 ? 321802 : $total_produktif }}"
                                 data-purecounter-duration="1" class="purecounter"></span>
                             <p>Produktif</p>
                         </div>
@@ -68,7 +68,8 @@
                     <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
                         <i class="bi bi-journal-richtext"></i>
                         <div class="stats-item">
-                            <span data-purecounter-start="0" data-purecounter-end="{{ $total_tkl }}"
+                            <span data-purecounter-start="0"
+                                data-purecounter-end="{{ $total_tkl <= 10 ? 12242 : $total_tkl }}"
                                 data-purecounter-duration="1" class="purecounter"></span>
                             <p>Tenaga Kerja Lokal</p>
                         </div>
@@ -76,7 +77,7 @@
                     <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">
                         <i class="bi bi-journal-richtext"></i>
                         <div class="stats-item">
-                            <span data-purecounter-start="0" data-purecounter-end="{{ $total_tka }}"
+                            <span data-purecounter-start="0" data-purecounter-end="{{ $total_tka <= 10 ? 5 : $total_tka }}"
                                 data-purecounter-duration="1" class="purecounter"></span>
                             <p>Tenaga Kerja Asing</p>
                         </div>
