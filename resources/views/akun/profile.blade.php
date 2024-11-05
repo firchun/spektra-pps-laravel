@@ -129,8 +129,8 @@
                         <div class="pl-lg-4">
                             <div class="row">
                                 <div class="col text-center">
-                                    <button type="submit" class="btn btn-primary">Save
-                                        Changes</button>
+                                    <button type="submit" class="btn btn-primary" id="simpan">Simpan
+                                        perubahan</button>
                                 </div>
                             </div>
                         </div>

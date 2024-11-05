@@ -46,7 +46,8 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-floppy2"></i> Simpan
+                            <button type="submit" class="btn btn-primary" id="simpan"><i class="bi bi-floppy2"></i>
+                                Simpan
                                 Berita</button>
                         </div>
                     </div>

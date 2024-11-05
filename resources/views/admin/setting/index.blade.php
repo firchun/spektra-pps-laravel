@@ -153,7 +153,7 @@
             <div class="col-md-8">
                 <div class="card-box mb-30">
                     <div class="card-body">
-                        <button type="submit" class="btn btn-primary"><i class="bi bi-floppy"></i> Simpan
+                        <button type="submit" class="btn btn-primary" id="simpan"><i class="bi bi-floppy"></i> Simpan
                             Perubahan</button>
                     </div>
                 </div>

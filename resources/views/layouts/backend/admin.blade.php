@@ -117,6 +117,23 @@
     <script src="{{ asset('backend_theme') }}/vendors/scripts/datatable-setting.js"></script>
     @stack('js')
     <script>
+        document.getElementById('simpan').addEventListener('click', function() {
+            const simpanButton = document.getElementById('simpan');
+            const form = simpanButton.closest('form');
+
+            // Buat elemen spinner
+            const spinner = document.createElement('span');
+            spinner.className = 'spinner-grow text-light spinner-grow-sm';
+            spinner.setAttribute('role', 'status');
+            spinner.setAttribute('aria-hidden', 'true');
+            spinner.id = 'simpanSpinner';
+
+            // Sisipkan spinner ke dalam tombol
+            simpanButton.prepend(spinner);
+            simpanButton.disabled = true;
+            form.submit();
+
+        });
         $(".delete-button").on('click', function(e) {
             e.preventDefault();
             let form = $(this).parents('form');

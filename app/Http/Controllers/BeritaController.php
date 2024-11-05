@@ -6,6 +6,7 @@ use App\Models\Berita;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
 
@@ -41,7 +42,11 @@ class BeritaController extends Controller
             ->addColumn('action', function ($customer) {
                 return view('admin.berita.main.components.actions', compact('customer'));
             })
-            ->rawColumns(['action'])
+            ->addColumn('foto', function ($customer) {
+                $imagePath = $customer->foto ? Storage::url($customer->foto) : asset('img/default.webp');
+                return '<img src="' . $imagePath . '" alt="' . $customer->slug . '" style="width:100px;">';
+            })
+            ->rawColumns(['action', 'foto'])
             ->make(true);
     }
     public function lihat_berita($id)
@@ -56,7 +61,13 @@ class BeritaController extends Controller
             'id_kategori_berita' => 'required',
             'judul' => 'required|string|max:255',
             'isi_berita' => 'required',
+            'foto' => $request->has('id') ? 'sometimes|file|mimes:jpeg,png,jpg,gif,svg|max:10048' : 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:10048',
         ]);
+
+        // Proses upload gambar jika ada
+        if ($request->hasFile('foto')) {
+            $filePath = $request->file('foto')->store('foto', 'public');
+        }
 
         $beritaData = [
             'id_kategori_berita' => $request->input('id_kategori_berita'),
@@ -65,18 +76,23 @@ class BeritaController extends Controller
             'isi_berita' => $request->input('isi_berita'),
             'id_user' => Auth::id(),
             'slug' => Str::slug($request->input('judul')),
+
         ];
 
+
+
+
         if ($request->filled('id')) {
-            $KategoriBerita = Berita::find($request->input('id'));
-            if (!$KategoriBerita) {
+            $Berita = Berita::find($request->input('id'));
+            if (!$Berita) {
                 return response()->json(['message' => 'kategori not found'], 404);
             }
-
-            $KategoriBerita->update($beritaData);
+            $beritaData['foto'] = $filePath ?? $Berita->foto;
+            $Berita->update($beritaData);
             session()->flash('success', 'Berhasil menyimpan berita');
             return redirect()->to('/berita');
         } else {
+            $beritaData['foto'] = $filePath;
             Berita::create($beritaData);
             session()->flash('success', 'Berhasil menyimpan berita');
             return redirect()->to('/berita');
@@ -86,13 +102,13 @@ class BeritaController extends Controller
     }
     public function destroy($id)
     {
-        $KategoriBeritas = Berita::find($id);
+        $Beritas = Berita::find($id);
 
-        if (!$KategoriBeritas) {
+        if (!$Beritas) {
             return response()->json(['message' => 'KategoriBerita not found'], 404);
         }
 
-        $KategoriBeritas->delete();
+        $Beritas->delete();
 
         return response()->json(['message' => 'KategoriBerita deleted successfully']);
     }

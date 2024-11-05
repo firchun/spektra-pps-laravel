@@ -33,14 +33,14 @@ class SettingController extends Controller
             ];
 
             if ($request->hasFile('foto_dinas')) {
-                $filePathFotoDinas = $request->file('foto_dinas')->store('public/foto_dinas');
+                $filePathFotoDinas = $request->file('foto_dinas')->store('public/galeri');
                 $dataUpdate['foto_dinas'] = $filePathFotoDinas;
             } else {
                 $dataUpdate['foto_dinas'] = $setting->foto_dinas;
             }
 
             if ($request->hasFile('struktur_dinas')) {
-                $filePathStrukturDinas = $request->file('struktur_dinas')->store('public/struktur_dinas');
+                $filePathStrukturDinas = $request->file('struktur_dinas')->store('public/galeri');
 
                 $dataUpdate['struktur_dinas'] = $filePathStrukturDinas;
             } else {

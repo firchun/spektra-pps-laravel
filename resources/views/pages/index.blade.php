@@ -86,10 +86,10 @@
                             <p class="text-black">Dinas Tenaga Kerja, Transmigrasi, Energi dan Sumber Daya
                                 Mineral Papua Selatan
                             </p>
-                            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+                            {{-- <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
                                 class="glightbox btn btn-outline-primary btn-lg">
                                 <i class="bi bi-play-circle"></i><span class="mx-2">Tonton Video</span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 @endif
