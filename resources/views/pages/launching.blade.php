@@ -4,7 +4,7 @@
         <div class="container section-title" data-aos="fade-up">
             <img src="{{ asset('/') }}img/logo_spektra.png" alt="" style="height: 150px;">
             <p>
-                <span>Launching </span> <span class="description-title">SPEKTRA</span>
+                <span>Launching </span> <span class="description-title">SPEKTRA PAPUA SLEATAN</span>
             </p>
             <p style="font-size:20px;" class="text-danger">Jam : <span id="clock"></span></p>
         </div><!-- End Section Title -->
