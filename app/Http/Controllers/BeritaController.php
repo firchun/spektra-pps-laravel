@@ -80,8 +80,6 @@ class BeritaController extends Controller
         ];
 
 
-
-
         if ($request->filled('id')) {
             $Berita = Berita::find($request->input('id'));
             if (!$Berita) {

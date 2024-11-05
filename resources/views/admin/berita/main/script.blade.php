@@ -47,7 +47,7 @@
             window.editCustomer = function(id) {
                 $.ajax({
                     type: 'GET',
-                    url: '/kategori-berita/edit/' + id,
+                    url: '/berita/edit/' + id,
                     success: function(response) {
                         $('#customersModalLabel').text('Edit Customer');
                         $('#formCustomerId').val(response.id);
@@ -85,7 +85,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '/kategori-berita/store',
+                    url: '/berita/store',
                     data: formData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -103,10 +103,10 @@
                 });
             });
             window.deleteCustomers = function(id) {
-                if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                if (confirm('Apakah Anda yakin ingin menghapus Berita ini?')) {
                     $.ajax({
                         type: 'DELETE',
-                        url: '/kategori-berita/delete/' + id,
+                        url: '/berita/delete/' + id,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
