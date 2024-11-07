@@ -25,6 +25,7 @@ class SettingController extends Controller
                 'nama_kadis'     => $request->input('nama_kadis', $setting->nama_kadis),
                 'sambutan_kadis' => $request->input('sambutan_kadis', $setting->sambutan_kadis),
                 'visi'           => $request->input('visi', $setting->visi),
+                'alamat_dinas'   => $request->input('alamat_dinas', $setting->alamat_dinas),
                 'misi'           => $request->input('misi', $setting->misi),
                 'email_dinas'    => $request->input('email_dinas', $setting->email_dinas),
                 'google_maps'    => $request->input('google_maps', $setting->google_maps),

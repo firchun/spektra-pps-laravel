@@ -32,7 +32,8 @@
                 @foreach ($berita_lainnya as $item)
                     <div class=" col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
                         <div class="card news-card position-relative border-primary">
-                            <img src="{{ asset('img') }}/default.webp" class="card-img-top" alt="Judul Berita">
+                            <img src="{{ $item->foto ? Storage::url($item->foto) : asset('img/default.webp') }}"
+                                class="card-img-top" alt="Judul Berita">
                             <div class="card-body">
                                 <h5 class="card-title text-center fw-bold">
                                     <a href="{{ url('/detail-berita', $item->slug) }}"
