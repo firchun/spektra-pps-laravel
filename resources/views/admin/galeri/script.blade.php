@@ -3,7 +3,7 @@
         $(function() {
             $('#datatable-customers').DataTable({
                 processing: true,
-                serverSide: false,
+                serverSide: true,
                 responsive: false,
                 ajax: '{{ url('galeri-datatable') }}',
                 columns: [{

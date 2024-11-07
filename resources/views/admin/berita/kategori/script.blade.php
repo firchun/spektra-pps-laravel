@@ -3,8 +3,8 @@
         $(function() {
             $('#datatable-customers').DataTable({
                 processing: true,
-                serverSide: false,
-                responsive: false,
+                serverSide: true,
+                responsive: true,
                 ajax: '{{ url('kategori-berita-datatable') }}',
                 columns: [{
                         data: 'id',

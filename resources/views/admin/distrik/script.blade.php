@@ -4,7 +4,7 @@
             $('#datatable-customers').DataTable({
                 processing: true,
                 serverSide: true,
-                responsive: false,
+                responsive: true,
                 ajax: '{{ url('distrik-datatable') }}',
                 columns: [{
                         data: 'id',

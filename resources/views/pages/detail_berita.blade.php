@@ -64,3 +64,26 @@
         @endif
     </section>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function() {
+            var id = {{ $berita->id }};
+            var url = '/berita/lihat-berita/' + id;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {},
+            });
+
+            $('.lihat-berita-btn').on('click', function() {
+                var id = $(this).data('id');
+                var url = '/berita/lihat-berita/' + id;
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {},
+                });
+            });
+        });
+    </script>
+@endpush

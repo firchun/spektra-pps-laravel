@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Perusahaan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,44 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Dummy company data for the chart
+        $companyData = Perusahaan::select('nama_perusahaan')
+            ->selectRaw('(jumlah_tkl + jumlah_tka + jumlah_oap) as total_karyawan');
+
+        if (Auth::user()->id_kabupaten) {
+            $companyData->where('id_kabupaten', Auth::user()->id_kabupaten);
+        }
+
+        $companyData = $companyData->get()
+            ->reduce(function ($result, $item) {
+                $result['labels'][] = $item->nama_perusahaan;
+                $result['data'][] = $item->total_karyawan;
+                return $result;
+            }, ['labels' => [], 'data' => []]);
+
+        $perusahaan = Perusahaan::selectRaw('
+            SUM(jumlah_tkl) as total_tkl,
+            SUM(jumlah_tka) as total_tka,
+            SUM(jumlah_oap) as total_oap
+        ');
+
+        if (Auth::user()->id_kabupaten) {
+            $perusahaan->where('id_kabupaten', Auth::user()->id_kabupaten);
+        }
+
+        $perusahaanData = $perusahaan->first();
+
+        $pieChartData = [
+            'labels' => ['Tenaga Kerja Lokal', 'Tenaga Kerja Asing', 'Orang Asli Papua'],
+            'data' => [
+                $perusahaanData->total_tkl,
+                $perusahaanData->total_tka,
+                $perusahaanData->total_oap
+            ]
+        ];
         $data = [
+            'companyData' => $companyData,
+            'pieChartData' => $pieChartData,
             'title' => 'Dashboard ' . Auth::user()->role,
         ];
         return view('admin.dashboard', $data);

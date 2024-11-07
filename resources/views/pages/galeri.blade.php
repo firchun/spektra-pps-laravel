@@ -27,7 +27,7 @@
                             <div class="portfolio-info">
                                 <h4>{{ $item->judul }}</h4>
                                 <p>{{ $item->keterangan }}</p>
-                                <a href="{{ Storage::url($item->file) }}" title="App 1"
+                                <a href="{{ Storage::url($item->file) }}" title="{{ $item->judul }}"
                                     data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i
                                         class="bi bi-zoom-in"></i></a>
                             </div>

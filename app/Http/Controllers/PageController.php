@@ -11,6 +11,7 @@ use App\Models\Pengunjung;
 use App\Models\Perusahaan;
 use App\Models\Renstra;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
@@ -148,12 +149,12 @@ class PageController extends Controller
                 $result['data'][] = $item->total_karyawan;
                 return $result;
             }, ['labels' => [], 'data' => []]);
+
         $perusahaanData = Perusahaan::selectRaw('
-        SUM(jumlah_tkl) as total_tkl,
-        SUM(jumlah_tka) as total_tka,
-        SUM(jumlah_oap) as total_oap
-    ')
-            ->first();
+            SUM(jumlah_tkl) as total_tkl,
+            SUM(jumlah_tka) as total_tka,
+            SUM(jumlah_oap) as total_oap
+        ')->first();
 
         $pieChartData = [
             'labels' => ['Tenaga Kerja Lokal', 'Tenaga Kerja Asing', 'Orang Asli Papua'],
