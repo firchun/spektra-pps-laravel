@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-    @elseif(Auth::user()->role == 'Operator' || Auth::user()->role == 'Super Admin')
+    @elseif(Auth::user()->role === 'Operator' || Auth::user()->role === 'Super Admin')
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card-box mb-30">
