@@ -13,7 +13,7 @@
         </div>
         <hr>
     </div>
-    @if (Auth::user()->role != 'Operator')
+    @if (Auth::user()->role != 'Operator' && Auth::user()->role != 'Super Admin')
         <div class="row justify-content-center">
             <div class="col-lg-6 col-12 mb-4">
                 <div class="card-box mb-30">
@@ -24,7 +24,7 @@
             </div>
 
             <!-- Pie Chart for Employee Data -->
-            <div class="col-lg-4 col-12 mb-4">
+            <div class="col-lg-5 col-12 mb-4">
                 <div class="card-box mb-30">
                     <div class="card-body">
                         <canvas id="companyPieChart" style="width: 100%; height: 400px;"></canvas>
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-    @elseif(Auth::user()->role === 'Operator' || Auth::user()->role === 'Super Admin')
+    @else
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card-box mb-30">

@@ -24,6 +24,7 @@ use App\Http\Controllers\StatusModalController;
 use App\Http\Controllers\StatusPerusahaanController;
 use App\Http\Controllers\UmpController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserLoginController;
 use App\Models\PendudukDistrik;
 use App\Models\Perusahaan;
 use App\Models\Renstra;
@@ -218,6 +219,9 @@ Route::middleware(['auth:web', 'role:Operator'])->group(function () {
     Route::get('/saran-datatable', [SaranController::class, 'getSaranDataTable']);
 });
 Route::middleware(['auth:web', 'role:Super Admin'])->group(function () {
+    //data login pengunjung
+    Route::get('/data-login', [UserLoginController::class, 'index'])->name('data-login');
+    Route::get('/data-login-datatable', [UserLoginController::class, 'getUserLoginDataTable']);
     //data pengunjung
     Route::get('/pengunjung', [PengunjungController::class, 'index'])->name('pengunjung');
     Route::get('/pengunjung-datatable', [PengunjungController::class, 'getPengunjungDataTable']);

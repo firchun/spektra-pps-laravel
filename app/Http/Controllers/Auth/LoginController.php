@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserLogin;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -41,5 +43,14 @@ class LoginController extends Controller
 
         session()->flash('success', 'Anda berhasil login!');
         return $this->redirectTo;
+    }
+    protected function authenticated(Request $request, $user)
+    {
+        UserLogin::create([
+            'id_user' => $user->id,
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->header('User-Agent'),
+            'login_time' => now()
+        ]);
     }
 }

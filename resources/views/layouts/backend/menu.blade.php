@@ -299,6 +299,12 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="{{ route('data-login') }}"
+                            class="dropdown-toggle no-arrow {{ request()->is('data-login*') ? 'active' : '' }}">
+                            <span class="micon bi bi-files"></span><span class="mtext">Data Login</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('pengunjung') }}"
                             class="dropdown-toggle no-arrow {{ request()->is('pengunjung*') ? 'active' : '' }}">
                             <span class="micon bi bi-files"></span><span class="mtext">Pengunjung</span>
