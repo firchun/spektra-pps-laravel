@@ -13,16 +13,36 @@
         </div>
         <hr>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-12 mb-4">
-            <canvas id="companyChart" style="width: 100%; height: 400px;"></canvas>
-        </div>
+    @if (Auth::user()->role != 'Operator')
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-12 mb-4">
+                <div class="card-box mb-30">
+                    <div class="card-body">
+                        <canvas id="companyChart" style="width: 100%; height: 400px;"></canvas>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Pie Chart for Employee Data -->
-        <div class="col-lg-4 col-12 mb-4">
-            <canvas id="companyPieChart" style="width: 100%; height: 400px;"></canvas>
+            <!-- Pie Chart for Employee Data -->
+            <div class="col-lg-4 col-12 mb-4">
+                <div class="card-box mb-30">
+                    <div class="card-body">
+                        <canvas id="companyPieChart" style="width: 100%; height: 400px;"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    @elseif(Auth::user()->role == 'Operator' || Auth::user()->role == 'Super Admin')
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card-box mb-30">
+                    <div class="card-body">
+                        <canvas id="visitorLineChart" style="width:100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
 @push('css')
     <style>
@@ -100,6 +120,49 @@
                     }
                 }
             }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ambil data pengunjung dalam 7 hari terakhir
+            fetch('/visitor-per-day')
+                .then(response => response.json())
+                .then(data => {
+                    var ctx = document.getElementById('visitorLineChart').getContext('2d');
+                    var visitorLineChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: 'Jumlah Pengunjung (7 Hari Terakhir)',
+                                data: data.data,
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderWidth: 2,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Tanggal'
+                                    }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Jumlah Pengunjung'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching visitor data:', error));
         });
     </script>
 @endpush

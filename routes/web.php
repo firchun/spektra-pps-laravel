@@ -5,6 +5,7 @@ use App\Http\Controllers\BidangController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DistrikController;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KategoriBeritaController;
 use App\Http\Controllers\KepemilikanPerusahaanController;
@@ -86,6 +87,8 @@ Route::get('/download/{file_name}', function ($file_name) {
 Auth::routes(['register' => false, 'reset' => false]);
 Route::middleware(['auth:web'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    //grafik
+    Route::get('/visitor-per-day', [HomeController::class, 'getVisitorPerDay']);
     //penduduk
     Route::get('/penduduk-datatable', [PendudukController::class, 'getPendudukDataTable']);
     //laporan

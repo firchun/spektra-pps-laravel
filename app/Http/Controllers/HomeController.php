@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Pengunjung;
 use App\Models\Perusahaan;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -95,5 +96,24 @@ class HomeController extends Controller
             'customers' => Customer::count()
         ];
         return view('admin.dashboard', $data);
+    }
+    public function getVisitorPerDay()
+    {
+        // Mengambil data pengunjung dalam 7 hari terakhir, dikelompokkan per hari
+        $visitorData = Pengunjung::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->where('created_at', '>=', now()->subDays(7))
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
+
+        // Format data untuk output JSON ke Chart.js
+        $formattedData = [
+            'labels' => $visitorData->pluck('date')->map(function ($date) {
+                return \Carbon\Carbon::parse($date)->format('Y-m-d');
+            }),
+            'data' => $visitorData->pluck('count')
+        ];
+
+        return response()->json($formattedData);
     }
 }
